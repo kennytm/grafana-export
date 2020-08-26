@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "none",
+    "lib": [
+      "DOM",
+      "ES2015",
+    ],
+    "strict": true,
+    "allowJs": false,
+    "forceConsistentCasingInFileNames": true,
+    "outFile": "dist/index.js"
+  }
+}
