@@ -5,7 +5,7 @@
 // without any real effect.
 false && import('angular');
 
-enum ExportState {
+const enum ExportState {
     idle,
     started,
     shortcut,
@@ -19,6 +19,7 @@ try {
         '.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}',
         '.__dexport_hint:hover{opacity:1}',
         '.__dexport_hint button{margin:0 1em}',
+        '.__dexport_hint button[disabled]{opacity:.5}',
         '.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}',
     ]
 
@@ -82,7 +83,7 @@ try {
                     this.doExport();
                 } else if (this.exportState !== ExportState.shortcut) {
                     this.exportState = ExportState.shortcut;
-                    this.exportButton.prop('disabled', false).text(L.exportImmediately).one(() => this.doExport());
+                    this.exportButton.prop('disabled', false).text(L.exportImmediately).one('click', () => this.doExport());
                 }
             }
         }
