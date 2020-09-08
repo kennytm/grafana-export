@@ -10,9 +10,11 @@ This method is suitable when you cannot use the browser's development tools.
 
     ![The "Share dashbaord" button](../docs/manual-1.png)
 
-4. Choose the "Snapshot" tab
+4. Choose the "Snapshot" tab, and click "Local Snapshot"
 
-5. Click "Local Snapshot", and wait until the link is available
+    ![The "Local snapshot" button](../docs/manual-4.png)
+
+5. Wait until the link is available
 
     ![Result of clicking "Local Snapshot"](../docs/manual-2.png)
 
