@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
 
-<title>Grafana Snapshot 备份与检视指南</title>
+<title>Grafana Snapshot 导出导入指南</title>
 
 <style>
     ol > li {
@@ -28,11 +28,9 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">备份</h5>
-                        <p class="card-text">以下列出多种方法可以把 Grafana 监控快照导出成 JSON 文件到本地</p>
+                        <h5 class="card-title">导出 Grafana 监控快照</h5>
                         <ul class="card-text">
-                            <li><a href="#backup-with-dev-tools">透过浏览器开发工具导出</a></li>
-                            <li><a href="#backup-with-manual">手动取出本地快照</a></li>
+                            <li><a href="#backup-with-dev-tools">在 Grafana 界面上导出</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,12 +38,12 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">检视</h5>
-                        <p class="card-text">以下列出多种方法可以检视或导入 Grafana 快照 JSON</p>
+                        <h5 class="card-title">导入 Grafana 监控快照</h5>
+                        <p class="card-text">以下列出多种方法可以检视或导入先前导出的 Grafana 监控快照</p>
                         <ul class="card-text">
-                            <li><a href="#restore-with-cli">使用命令行工具导入至 Grafana</a></li>
                             <li><a href="#restore-with-curl">使用 curl 导入至 Grafana</a></li>
                             <li><a href="#restore-with-wget">使用 wget 导入至 Grafana</a></li>
+                            <li><a href="#restore-with-cli">使用命令行工具导入至 Grafana</a></li>
                         </ul>
                     </div>
                 </div>
@@ -56,56 +54,31 @@
     <hr>
 
     <div id="backup-with-dev-tools" class="p-5">
-        <h1>透过浏览器开发工具导出</h1>
-        <p>如果能使用<abbr title="Chrome/Edge 51+、Firefox 54+、Safari 10+">新款浏览器</abbr>打开用户的 Grafana 介面，并且能使用<abbr title="Development tools">开发工具</abbr>，建议使用这方法。</p>
+        <h1>在 Grafana 界面上导出</h1>
+        <p>如果您使用 Chrome / Edge / Firefox 浏览器，步骤如下：</p>
         <ol>
             <li>
-                <p>使用浏览器登入至 Grafana。</p>
-            </li>
-            <li>
-                <p>打开要导出的<abbr title="Dashboard">监控面板</abbr>。</p>
-            </li>
-            <li>
-                <p>启动浏览器的开发工具，并选择 JavaScript Console。</p>
-                <p><ul class="text-muted">
-                    <li>在 Chrome、Firefox 和 Edge，按一下 <kbd>F12</kbd>，然后点选 “Console” 页</li>
-                    <li>在 Safari，从<abbr title="Advanced Preferences">高级偏好设置</abbr>中允许<abbr title="“Develop” menu">“开发”菜单</abbr>，然后从“<abbr title="Develop">开发</abbr>”菜单选择“<abbr title="Show JavaScript Console">显示 JavaScript 控制台</abbr>”（或按 <kbd title="option">⌥</kbd>-<kbd title="command">⌘</kbd>-<kbd>C</kbd>）</li>
-                </ul></p>
-            </li>
-            <li>
-                <p><button type="button" class="btn btn-outline-primary" id="copy-script-button" disabled>复制以下内容</button></p>
+                <p><button type="button" class="btn btn-outline-primary" id="copy-script-button" disabled>复制以下脚本</button></p>
                 <p class="w-100" id="script-container">
                     <iframe src="scripts/dist/index.min.js" id="script-iframe" class="w-100"></iframe>
                 </p>
             </li>
             <li>
-                <p>粘贴到 JavaScript Console 里。</p>
-                <p><img src="docs/dev-tools-5.png" class="img-fluid" alt="把上一步复制的内容粘贴到 JavaScript Console 里"></p>
+                <p>打开想导出的 Grafana 监控面板。</p>
             </li>
             <li>
-                <p>按 <kbd>Enter</kbd> 执行。网页中应出现一个对话框。</p>
+                <p>按下 <kbd>F12</kbd> 启动开发者工具，在”Console“ 面板下粘贴脚本。</p>
+                <p><img src="docs/dev-tools-5.png" class="img-fluid" alt="Console 粘贴示例"></p>
+            </li>
+            <li>
+                <p>按下 <kbd>回车 (Enter)</kbd> 执行脚本。此时 Grafana 网页中会出现操作提示框，请遵循其指示进行后续操作。</p>
                 <p><img src="docs/dev-tools-6.png" class="img-fluid" alt="在监控面板出现的对话框"></p>
-            </li>
-            <li>
-                <p>点击 “展开所有面板 (Expand all rows)”。</p>
-            </li>
-            <li>
-                <p>点击 “导出 (Expand)” 开始导出。</p>
-                <p><img src="docs/dev-tools-8.png" class="img-fluid" alt="点击“导出”后的进度条"></p>
-            </li>
-            <li>
-                <p>当进度条到达 100% 时，JSON 文件就会自动可供下载。</p>
-                <p>如果进度条一直不动，你也可以点击 “立刻导出 (Export immediately)” 放弃余下的面板，只保存已准备好的面板。</p>
-                <p>你也可以点击 “取消 (Cancel)” 离开。</p>
-            </li>
-            <li>
-                <p>从第 2 步开始继续导出其他监控面板。</p>
             </li>
         </ol>
         <p><a href="#top">↑ 返回</a></p>
     </div>
 
-    <hr>
+    <!--<hr>
 
     <div id="backup-with-manual" class="p-5">
         <h1>手动取出本地快照</h1>
@@ -150,56 +123,7 @@
             </li>
         </ol>
         <p><a href="#top">↑ 返回</a></p>
-    </div>
-
-    <hr>
-
-    <div id="restore-with-cli" class="p-5">
-        <h1>使用命令行工具导入至 Grafana</h1>
-
-        <p>适用于已有现成的 Grafana 实例，并且能下载及执行外部命令行工具。</p>
-
-        <p class="text-muted">如果没有现成的 Grafana 实例，可以使用 tiup playground 快速起一个。</p>
-
-        <ol>
-            <li>
-                <p>下载 <a href="https://github.com/kennytm/grafana-export/releases/download/v0.1.0/grafsnap-0.1.0-linux-x86_64.tar.gz">grafsnap 0.1.0</a> 压缩包并解压到当前目录。</p>
-                <pre><code>wget https://github.com/kennytm/grafana-export/releases/download/v0.1.0/grafsnap-0.1.0-linux-x86_64.tar.gz
-tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
-            </li>
-            <li>
-                <p>准备好要导入的监控快照 JSON 文件。</p>
-            </li>
-            <li>
-                <p>执行导入：</p>
-                <pre><code>./grafsnap import -b '<mark>http://localhost:3000/</mark>' -k '<mark>admin:admin</mark>' <mark>~/snap1.json ~/snap2.json</mark></code></pre>
-                <p>其中参数是：
-                    <dl class="row">
-                        <dt class="col-xl-3 col-lg-4">-b 'http://localhost:3000/'</dt>
-                        <dd class="col-xl-9 col-lg-8">Grafana 服务器的地址和端口</dd>
-                        <dt class="col-xl-3 col-lg-4">-k 'admin:admin'</dt>
-                        <dd class="col-xl-9 col-lg-8">登入用户名和密码；亦可以使用 <a href="https://grafana.com/docs/grafana/latest/http_api/auth/">API Key</a></dd>
-                        <dt class="col-xl-3 col-lg-4">~/snap1.json ~/snap2.json</dt>
-                        <dd class="col-xl-9 col-lg-8">要导入的 JSON 文件路径，可一次导入多个</dd>
-                    </dl>
-                </p>
-            </li>
-            <li>
-                <p>完成后会打印类似这样的反馈，打开列出的 URL 即可检视对应的快照。</p>
-                <pre><code>[
-    {
-        "file": "snap1.json",
-        "url": "<mark>http://localhost:3000/dashboard/snapshot/94prEd89WqqawEJkujYit5aHHkqbkKWs</mark>"
-    },
-    {
-        "file": "snap2.json",
-        "url": "<mark>http://localhost:3000/dashboard/snapshot/b4wJAg4OQ9t6yTddpawF6cImiG2MVpt2</mark>"
-    }
-]</code></pre>
-            </li>
-        </ol>
-        <p><a href="#top">↑ 返回</a></p>
-    </div>
+    </div>-->
 
     <hr>
 
@@ -265,6 +189,55 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
  "key":"icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN",
  "url":"<mark>http://localhost:3000/dashboard/snapshot/icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN</mark>"}</code></pre>
                                </li>
+        </ol>
+        <p><a href="#top">↑ 返回</a></p>
+    </div>
+
+    <hr>
+
+    <div id="restore-with-cli" class="p-5">
+        <h1>使用命令行工具导入至 Grafana</h1>
+
+        <p>适用于已有现成的 Grafana 实例，并且能下载及执行外部命令行工具。</p>
+
+        <p class="text-muted">如果没有现成的 Grafana 实例，可以使用 tiup playground 快速起一个。</p>
+
+        <ol>
+            <li>
+                <p>下载 <a href="https://github.com/kennytm/grafana-export/releases/download/v0.1.0/grafsnap-0.1.0-linux-x86_64.tar.gz">grafsnap 0.1.0</a> 压缩包并解压到当前目录。</p>
+                <pre><code>wget https://github.com/kennytm/grafana-export/releases/download/v0.1.0/grafsnap-0.1.0-linux-x86_64.tar.gz
+tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
+            </li>
+            <li>
+                <p>准备好要导入的监控快照 JSON 文件。</p>
+            </li>
+            <li>
+                <p>执行导入：</p>
+                <pre><code>./grafsnap import -b '<mark>http://localhost:3000/</mark>' -k '<mark>admin:admin</mark>' <mark>~/snap1.json ~/snap2.json</mark></code></pre>
+                <p>其中参数是：
+                    <dl class="row">
+                        <dt class="col-xl-3 col-lg-4">-b 'http://localhost:3000/'</dt>
+                        <dd class="col-xl-9 col-lg-8">Grafana 服务器的地址和端口</dd>
+                        <dt class="col-xl-3 col-lg-4">-k 'admin:admin'</dt>
+                        <dd class="col-xl-9 col-lg-8">登入用户名和密码；亦可以使用 <a href="https://grafana.com/docs/grafana/latest/http_api/auth/">API Key</a></dd>
+                        <dt class="col-xl-3 col-lg-4">~/snap1.json ~/snap2.json</dt>
+                        <dd class="col-xl-9 col-lg-8">要导入的 JSON 文件路径，可一次导入多个</dd>
+                    </dl>
+                </p>
+            </li>
+            <li>
+                <p>完成后会打印类似这样的反馈，打开列出的 URL 即可检视对应的快照。</p>
+                <pre><code>[
+    {
+        "file": "snap1.json",
+        "url": "<mark>http://localhost:3000/dashboard/snapshot/94prEd89WqqawEJkujYit5aHHkqbkKWs</mark>"
+    },
+    {
+        "file": "snap2.json",
+        "url": "<mark>http://localhost:3000/dashboard/snapshot/b4wJAg4OQ9t6yTddpawF6cImiG2MVpt2</mark>"
+    }
+]</code></pre>
+            </li>
         </ol>
         <p><a href="#top">↑ 返回</a></p>
     </div>
