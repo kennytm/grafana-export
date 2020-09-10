@@ -18,6 +18,13 @@
         background: #eee;
         padding: 0.5rem;
     }
+    @keyframes fade-out {
+        50% { opacity: 1; }
+        to { opacity: 0; }
+    }
+    #copied-note {
+        animation: fade-out 1s forwards;
+    }
 </style>
 
 </head>
@@ -58,7 +65,7 @@
         <p>如果您使用 Chrome / Edge / Firefox 浏览器，步骤如下：</p>
         <ol>
             <li>
-                <p><button type="button" class="btn btn-outline-primary" id="copy-script-button" disabled>复制以下脚本</button></p>
+                <p><button type="button" class="btn btn-outline-primary" id="copy-script-button" disabled>复制以下脚本</button> <em id="copied-note" style="display:none;">已复制！</em></p>
                 <p class="w-100" id="script-container">
                     <iframe src="scripts/dist/index.min.js" id="script-iframe" class="w-100"></iframe>
                 </p>
@@ -254,6 +261,10 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
                 $('#copy-script-button').prop('disabled', false).click(function() {
                     $('#script-container > textarea').focus().select();
                     document.execCommand('copy');
+                    var copiedNote = $('#copied-note').show();
+                    setTimeout(function() {
+                        copiedNote.hide();
+                    }, 1000);
                 });
             });
         });
