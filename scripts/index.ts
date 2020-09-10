@@ -97,6 +97,9 @@ try {
             this.oldRefreshRate = dashboard.refresh;
             this.timeSrv.setAutoRefresh();
 
+            // remove the "ready" status of all spinners
+            $('.panel-loading').removeClass('ng-hide');
+
             dashboard.snapshot = {timestamp: new Date()};
             dashboard.startRefresh();
         }
