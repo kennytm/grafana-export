@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+<link rel="stylesheet" href="docs/bootstrap.min.css" />
 
 <title>Grafana Snapshot 导出导入指南</title>
 
@@ -65,7 +65,11 @@
         <p>如果您使用 Chrome / Edge / Firefox 浏览器，步骤如下：</p>
         <ol>
             <li>
-                <p><button type="button" class="btn btn-outline-primary" id="copy-script-button" disabled>复制以下脚本</button> <em id="copied-note" style="display:none;">已复制！</em></p>
+                <p>
+                    <span id="copy-script-text">复制以下脚本</span>
+                    <button type="button" class="btn btn-outline-primary" id="copy-script-button" style="display:none;">复制以下脚本</button>
+                    <em id="copied-note" style="display:none;">已复制！</em>
+                </p>
                 <p class="w-100" id="script-container">
                     <iframe src="scripts/dist/index.min.js" id="script-iframe" class="w-100"></iframe>
                 </p>
@@ -249,16 +253,15 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
 
 </main>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="docs/jquery-3.5.1.slim.min.js"></script>
 <script>
     $(document).ready(function() {
         var iframe = $('#script-iframe');
         fetch(iframe.attr('src')).then(function(resp) {
             resp.text().then(function(text) {
                 iframe.replaceWith($('<textarea class="w-100" readonly rows="5" cols="100">').val(text));
-                $('#copy-script-button').prop('disabled', false).click(function() {
+                $('#copy-script-text').hide();
+                $('#copy-script-button').show().click(function() {
                     $('#script-container > textarea').focus().select();
                     document.execCommand('copy');
                     var copiedNote = $('#copied-note').show();
