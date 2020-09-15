@@ -1,0 +1,150 @@
+@import "~open-color/open-color.less";
+@import "~typeface-jetbrains-mono/dist/index.css";
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+html,
+body {
+  background: @oc-gray-2;
+}
+
+.mt-nav {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: none;
+  animation: fadein 0.3s;
+
+  &.visible {
+    display: block;
+  }
+
+  > .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropdown .button {
+    background: none;
+    border: 0;
+  }
+
+  .mt-nav-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mt-action-item-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .mt-action-item {
+    display: inline-block;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 6px;
+    margin: 0 1rem;
+    box-shadow: 0 1.5rem 1.5rem -1.25rem rgba(10, 10, 10, 0.05);
+    transition: box-shadow 200ms linear, transform 200ms linear;
+
+    h2 .mdi {
+      color: @oc-blue-6;
+    }
+
+    &:hover {
+      box-shadow: 0 2rem 2rem -1.25rem rgba(10, 10, 10, 0.1);
+      transform: translateY(-0.1rem);
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .mt-action-item-container {
+      width: 100%;
+      flex-direction: column;
+    }
+    .mt-action-item {
+      display: block;
+      width: 100%;
+      margin: 1rem 0;
+    }
+  }
+}
+
+.mt-content-item {
+  display: none;
+  min-height: 90vh;
+  animation: fadein 1s;
+  box-sizing: border-box;
+  padding: 4rem 0;
+  background: #fff;
+
+  &.visible {
+    display: block;
+  }
+
+  h1 {
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+
+  li + li {
+    margin-top: 1rem;
+  }
+
+  dt {
+    font-weight: bold;
+  }
+}
+
+body [lang] {
+  display: none;
+}
+
+body[lang="zh-CN"] span[lang="zh-CN"] {
+  display: inline-block;
+}
+body[lang="zh-TW"] span[lang="zh-TW"] {
+  display: inline-block;
+}
+body[lang="en-US"] span[lang="en-US"] {
+  display: inline-block;
+}
+
+kbd {
+  display: inline-block;
+  padding: 0.5rem 0.2rem;
+  font-size: 0.8rem;
+  line-height: 10px;
+  color: @oc-gray-9;
+  vertical-align: middle;
+  background-color: @oc-gray-1;
+  border: solid 1px @oc-gray-4;
+  border-bottom-color: @oc-gray-6;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 @oc-gray-6;
+}
+
+kbd,
+pre,
+code,
+#scriptContentBox {
+  font-family: "JetBrains Mono", monospace;
+  font-feature-settings: "dlig" 0, "liga" 0, "calt" 0;
+}

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <title>MetricsTool</title>
+  </head>
+  <body lang="en-US">
+    <div class="mt-nav" data-id="top">
+      <div class="container">
+        <div class="columns is-vcentered my-2">
+          <div class="column">
+            <div class="logo is-size-4">
+              <h1>
+                <a href="/">
+                  <span
+                    class="mdi mdi-chart-timeline-variant has-text-danger"
+                  ></span>
+                  <span class="ml-2 has-text-dark">PingCAP MetricsTool</span>
+                </a>
+              </h1>
+            </div>
+          </div>
+          <div class="column is-narrow">
+            <div class="dropdown is-hoverable">
+              <div class="dropdown-trigger">
+                <button
+                  class="button"
+                  aria-haspopup="true"
+                  aria-controls="dropdown-menu"
+                >
+                  <span class="mdi mdi-translate"></span>
+                  <span class="ml-2 mr-1">Language</span>
+                  <span class="mdi mdi-chevron-down"></span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <a class="dropdown-item" data-switch-lang="en-US">English</a>
+                  <a class="dropdown-item" data-switch-lang="zh-CN">简体中文</a>
+                  <a class="dropdown-item" data-switch-lang="zh-TW">繁体中文</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-nav-content">
+          <div class="mt-action-item-container">
+            <a class="mt-action-item" href="#export">
+              <h2 class="has-text-black is-size-5">
+                <span lang="en-US">Export</span>
+                <span lang="zh-CN">导出</span>
+                <span lang="zh-TW">匯出</span>
+                <span class="mdi mdi-download"></span>
+              </h2>
+              <div class="has-text-grey mt-2">
+                <span lang="en-US"> Export Grafana data as a snapshot </span>
+                <span lang="zh-CN"> 导出 Grafana 数据为快照 </span>
+                <span lang="zh-TW"> 匯出 Grafana 數據為快照 </span>
+              </div>
+            </a>
+            <a class="mt-action-item" href="/viz" target="_blank">
+              <h2 class="has-text-black is-size-5">
+                <span lang="en-US">View</span>
+                <span lang="zh-CN">查看</span>
+                <span lang="zh-TW">檢視</span>
+                <span class="mdi mdi-eye-outline"></span>
+              </h2>
+              <div class="has-text-grey mt-2">
+                <span lang="en-US">View Grafana snapshot online</span>
+                <span lang="zh-CN">在线查看 Grafana 快照</span>
+                <span lang="zh-TW">在線檢視 Grafana 快照</span>
+                <span class="mdi mdi-open-in-new"></span>
+              </div>
+            </a>
+            <a class="mt-action-item" href="#import">
+              <h2 class="has-text-black is-size-5">
+                <span lang="en-US">Import</span>
+                <span lang="zh-CN">导入</span>
+                <span lang="zh-TW">匯入</span>
+                <span class="mdi mdi-database-import"></span>
+              </h2>
+              <div class="has-text-grey mt-2">
+                <span lang="en-US">Import snapshot into a local Grafana</span>
+                <span lang="zh-CN">将快照导入到本地 Grafana</span>
+                <span lang="zh-TW">將快照匯入到本地 Grafana</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-content-item" data-id="export">
+      <div class="container">
+        <div class="content">
+          <h1>
+            <span lang="en-US">Export Grafana data as a snapshot</span>
+            <span lang="zh-CN">导出 Grafana 数据为快照</span>
+            <span lang="zh-TW">匯出 Grafana 數據為快照</span>
+          </h1>
+          <p>
+            <span lang="en-US"
+              >Supported on Chrome, Edge and Firefox browsers</span
+            >
+            <span lang="zh-CN">适用于 Chrome / Edge / Firefox 浏览器</span>
+            <span lang="zh-TW">適用於 Chrome / Edge / Firefox 瀏覽器</span>
+          </p>
+          <ol>
+            <li>
+              <p>
+                <button
+                  class="button is-small is-link"
+                  data-clipboard-target="#scriptContentBox"
+                  id="copyButton"
+                >
+                  <div class="mdi mdi-content-copy"></div>
+                  <span lang="en-US">Copy the script below</span>
+                  <span lang="zh-CN">复制以下脚本</span>
+                  <span lang="zh-TW">複製以下指令碼</span>
+                </button>
+                <span id="copiedNote" class="is-invisible has-text-danger">
+                  <span class="mdi mdi-check"></span>
+                  <span lang="en-US">Copied!</span>
+                  <span lang="zh-CN">已复制！</span>
+                  <span lang="zh-TW">已複制！</span>
+                </span>
+              </p>
+              <textarea
+                class="textarea is-small"
+                readonly
+                id="scriptContentBox"
+              ></textarea>
+            </li>
+            <li>
+              <p>
+                <span lang="en-US">
+                  After opening a Grafana Dashboard, press <kbd>F12</kbd> the
+                  launch the Developer Tool, and then paste the script in the
+                  “Console” tab.
+                </span>
+                <span lang="zh-CN">
+                  在 Grafana 监控面板中按下 <kbd>F12</kbd> 启动开发者工具，在
+                  “Console” 面板下粘贴脚本。
+                </span>
+                <span lang="zh-TW">
+                  在 Grafana 儀表板中按下
+                  <kbd>F12</kbd> 啟動開發者工具，在「Console」頁下貼上指令碼。
+                </span>
+              </p>
+              <p>
+                <img
+                  src="static/dev-tools-5.png"
+                  srcset="static/dev-tools-5.png 2x"
+                  class="img-fluid"
+                  alt="Pasting the script into the Developer Tool Console"
+                />
+              </p>
+            </li>
+            <li>
+              <p>
+                <span lang="en-US">
+                  Press <kbd>Enter</kbd> to execute the script. A dialog should
+                  now appear on the web page. Follow its instruction to
+                  continue.
+                </span>
+                <span lang="zh-CN">
+                  按下 <kbd>回车 (Enter)</kbd> 执行脚本。此时 Grafana
+                  网页中会出现操作提示框，请遵循其指示进行后续操作。
+                </span>
+                <span lang="zh-TW">
+                  按下 <kbd>輸入 (Enter)</kbd> 運行指令碼。此時 Grafana
+                  網面中會出現操作提示框，請遵循其指示繼續操作。
+                </span>
+              </p>
+              <p>
+                <img
+                  src="static/dev-tools-6.png"
+                  srcset="static/dev-tools-6.png 2x"
+                  class="img-fluid"
+                  alt="The dialog in the Dashboard"
+                />
+              </p>
+            </li>
+          </ol>
+          <p>
+            <a href="#top"
+              >↑
+              <span lang="en-US">Return Top</span>
+              <span lang="zh-CN">返回顶部</span>
+              <span lang="zh-TW">返回頂部</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-content-item" data-id="import">
+      <div class="container">
+        <div class="content">
+          <h1>
+            <span lang="en-US">Import snapshot into a local Grafana</span>
+            <span lang="zh-CN">将快照导入到本地 Grafana</span>
+            <span lang="zh-TW">將快照匯入到本地 Grafana</span>
+          </h1>
+          <h2>
+            <span lang="en-US">Use cURL</span>
+            <span lang="zh-CN">使用 cURL</span>
+            <span lang="zh-TW">使用 cURL</span>
+          </h2>
+          <ol>
+            <li>
+              <p>
+                <span lang="en-US">Execute import command:</span>
+                <span lang="zh-CN">执行导入：</span>
+                <span lang="zh-TW">運行匯入指令：</span>
+              </p>
+              <pre><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --data-binary @<mark>/root/snap1.json</mark></code></pre>
+              <p>
+                <span lang="en-US">in which:</span>
+                <span lang="zh-CN">其中参数是：</span>
+                <span lang="zh-TW">其中參數是：</span>
+              </p>
+              <dl>
+                <dt>http://admin:admin@localhost:3000</dt>
+                <dd>
+                  <span lang="en-US"
+                    >Login name, password, host and port of Grafana server</span
+                  >
+                  <span lang="zh-CN"
+                    >Grafana 服务器的登入用户名、密码、地址和端口</span
+                  >
+                  <span lang="zh-TW"
+                    >Grafana 伺服器的登入用戶名稱、密碼、位址和通訊埠</span
+                  >
+                </dd>
+              </dl>
+              <dl>
+                <dt>/root/snap1.json</dt>
+                <dd>
+                  <span lang="en-US">Path of the imported JSON file</span>
+                  <span lang="zh-CN">要导入的 JSON 文件路径</span>
+                  <span lang="zh-TW">要匯入的 JSON 檔案路徑</span>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                <span lang="en-US">
+                  Output like this is shown after finishing. Open the URL at the
+                  end to view the imported snapshot.
+                </span>
+                <span lang="zh-CN">
+                  完成后会打印类似这样的反馈，打开最后列出的 URL 即可检视快照。
+                </span>
+                <span lang="zh-TW">
+                  完成後會輸出類似這樣的結果，開啟最後列出的 URL 即可檢視快照。
+                </span>
+              </p>
+              <pre><code>{"deleteKey":"8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
+ "deleteUrl":"http://localhost:3000/api/snapshots-delete/8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
+ "key":"icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN",
+ "url":"<mark>http://localhost:3000/dashboard/snapshot/icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN</mark>"}</code></pre>
+            </li>
+          </ol>
+          <p>
+            <a href="#top"
+              >↑
+              <span lang="en-US">Return Top</span>
+              <span lang="zh-CN">返回顶部</span>
+              <span lang="zh-TW">返回頂部</span>
+            </a>
+          </p>
+          <hr />
+          <h2>
+            <span lang="en-US">Alternative: Use “grafsnap”</span>
+            <span lang="zh-CN">其他方法：使用 grafsnap 命令行工具</span>
+            <span lang="zh-TW">其他方法:使用 grafsnap 命令列程式</span>
+          </h2>
+          <ol>
+            <li>
+              <p>
+                <span lang="en-US">Download</span>
+                <span lang="zh-CN">下载</span>
+                <span lang="zh-TW">下載</span>
+                <a
+                  href="https://github.com/kennytm/grafana-export/releases/download/v0.1.0/grafsnap-0.1.0-linux-x86_64.tar.gz"
+                  >grafsnap 0.1.0</a
+                >
+                <span lang="en-US"
+                  >and extract it into the current folder.</span
+                >
+                <span lang="zh-CN">压缩包并解压到当前目录。</span>
+                <span lang="zh-TW">壓縮檔並解壓縮到當前目錄。</span>
+              </p>
+              <pre><code>wget https://github.com/kennytm/grafana-export/releases/download/v0.1.0/grafsnap-0.1.0-linux-x86_64.tar.gz
+tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
+            </li>
+            <li>
+              <p>
+                <span lang="en-US">Execute import command:</span>
+                <span lang="zh-CN">执行导入：</span>
+                <span lang="zh-TW">運行匯入指令：</span>
+              </p>
+              <pre><code>./grafsnap import -b '<mark>http://localhost:3000/</mark>' -k '<mark>admin:admin</mark>' <mark>~/snap1.json ~/snap2.json</mark></code></pre>
+              <p>
+                <span lang="en-US">in which:</span>
+                <span lang="zh-CN">其中参数是：</span>
+                <span lang="zh-TW">其中參數是：</span>
+              </p>
+              <dl>
+                <dt>-b 'http://localhost:3000/'</dt>
+                <dd>
+                  <span lang="en-US">Host and port of Grafana server</span>
+                  <span lang="zh-CN">Grafana 服务器的地址和端口</span>
+                  <span lang="zh-TW">Grafana 伺服器的位址和通訊埠</span>
+                </dd>
+              </dl>
+              <dl>
+                <dt>-k 'admin:admin'</dt>
+                <dd>
+                  <span lang="en-US"
+                    >Login name and password; you can also use an
+                    <a
+                      href="https://grafana.com/docs/grafana/latest/http_api/auth/"
+                      target="_blank"
+                      >API Key</a
+                    ></span
+                  >
+                  <span lang="zh-CN"
+                    >登入用户名和密码；亦可以使用
+                    <a
+                      href="https://grafana.com/docs/grafana/latest/http_api/auth/"
+                      target="_blank"
+                      >API Key</a
+                    ></span
+                  >
+                  <span lang="zh-TW"
+                    >登入用戶名稱和密碼；亦可以使用
+                    <a
+                      href="https://grafana.com/docs/grafana/latest/http_api/auth/"
+                      target="_blank"
+                      >API Key</a
+                    ></span
+                  >
+                </dd>
+              </dl>
+              <dl>
+                <dt>~/snap1.json ~/snap2.json</dt>
+                <dd>
+                  <span lang="en-US"
+                    >Paths of the (multiple) imported JSON files</span
+                  >
+                  <span lang="zh-CN"
+                    >要导入的 JSON 文件路径，可一次导入多个</span
+                  >
+                  <span lang="zh-TW"
+                    >要匯入的 JSON 檔案路徑，可一次匯入多個</span
+                  >
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                <span lang="en-US">
+                  Output like this is shown after finishing. Open each URL to
+                  view the corresponding snapshot.
+                </span>
+                <span lang="zh-CN">
+                  完成后会打印类似这样的反馈，打开列出的 URL
+                  即可检视对应的快照。
+                </span>
+                <span lang="zh-TW">
+                  完成後會輸出類似這樣的結果，開啟列出的 URL
+                  即可檢視對應的快照。
+                </span>
+              </p>
+              <pre><code>[
+    {
+        "file": "snap1.json",
+        "url": "<mark>http://localhost:3000/dashboard/snapshot/94prEd89WqqawEJkujYit5aHHkqbkKWs</mark>"
+    },
+    {
+        "file": "snap2.json",
+        "url": "<mark>http://localhost:3000/dashboard/snapshot/b4wJAg4OQ9t6yTddpawF6cImiG2MVpt2</mark>"
+    }
+]</code></pre>
+            </li>
+          </ol>
+          <p>
+            <a href="#top"
+              >↑
+              <span lang="en-US">Return Top</span>
+              <span lang="zh-CN">返回顶部</span>
+              <span lang="zh-TW">返回頂部</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

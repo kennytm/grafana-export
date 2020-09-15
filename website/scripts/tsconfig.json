@@ -1,11 +1,10 @@
 {
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "target": "ES2015",
+    "target": "ES5",
     "module": "none",
-    "lib": [
-      "DOM",
-      "ES2015",
-    ],
+    "moduleResolution": "Node",
+    "lib": ["DOM"],
     "strict": true,
     "allowJs": false,
     "forceConsistentCasingInFileNames": true,

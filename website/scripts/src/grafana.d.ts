@@ -2,46 +2,46 @@
 
 // https://github.com/grafana/grafana/blob/v6.1.6/public/app/features/dashboard/state/PanelModel.ts
 declare class PanelModel {
-    snapshotData?: any
+  snapshotData?: any;
 }
 
 declare interface Annotation {
-    snapshotData?: any
+  snapshotData?: any;
 }
 
 declare interface Annotations {
-    list: Annotation[]
+  list: Annotation[];
 }
 
 // https://github.com/grafana/grafana/blob/v6.1.6/public/app/features/dashboard/state/DashboardModel.ts
 declare class DashboardModel {
-    readonly refresh?: string
-    readonly title: string
-    readonly annotations: Annotations
-    time: TimeRange
-    snapshot?: Snapshot
+  readonly refresh?: string;
+  readonly title: string;
+  readonly annotations: Annotations;
+  time: TimeRange;
+  snapshot?: Snapshot;
 
-    getSaveModelClone(): DashboardModel
-    expandRows(): void
-    startRefresh(): void
-    forEachPanel(callback: (panel: PanelModel, index: number) => void): void
+  getSaveModelClone(): DashboardModel;
+  expandRows(): void;
+  startRefresh(): void;
+  forEachPanel(callback: (panel: PanelModel, index: number) => void): void;
 }
 
 declare interface TimeRange {}
 
 // https://github.com/grafana/grafana/blob/v6.1.6/public/app/features/dashboard/services/TimeSrv.ts
 declare class TimeSrv {
-    readonly dashboard: DashboardModel
+  readonly dashboard: DashboardModel;
 
-    setAutoRefresh(interval?: string): void
-    timeRange(): TimeRange
+  setAutoRefresh(interval?: string): void;
+  timeRange(): TimeRange;
 }
 
 declare interface JQLiteWithFilter extends JQLite {
-    filter(selector: string): JQLiteWithFilter
+  filter(selector: string): JQLiteWithFilter;
 }
 
 // https://github.com/grafana/grafana/blob/v6.1.6/public/app/features/dashboard/components/ShareModal/ShareSnapshotCtrl.ts#L38
 declare interface Snapshot {
-    readonly timestamp: Date
+  readonly timestamp: Date;
 }
