@@ -29,18 +29,13 @@
     [lang] {
         display: none;
     }
-</style>
-<style title="show-en-US">
-    span:lang(en-US) { display: inline }
-    p:lang(en-US) { display: block }
-</style>
-<style title="show-zh-CN">
-    span:lang(zh-CN) { display: inline }
-    p:lang(zh-CN) { display: block }
-</style>
-<style title="show-zh-TW">
-    span:lang(zh-TW) { display: inline }
-    p:lang(zh-TW) { display: block }
+
+    p:lang(en-US) {
+        display: block;
+    }
+    span:lang(en-US) {
+        display: inline;
+    }
 </style>
 
 </head>
@@ -548,10 +543,13 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
         };
 
         $('#lang-selector').prop('disabled', false).change(function() {
-            var sheets = document.styleSheets;
-            for (var i = 0; i < sheets.length; i++) {
-                var title = sheets[i].title;
-                sheets[i].disabled = /^show-/.test(title) && title !== 'show-' + this.value;
+            var rules = document.styleSheets[1].cssRules;
+            for (var i = 0; i < rules.length; i++) {
+                var rule = rules[i];
+                var st = rule.selectorText;
+                if (st) {
+                    rule.selectorText = st.replace(/:lang\([^)]+\)/, ':lang('+this.value+')');
+                }
             }
             document.title = localizedTitles[this.value];
         }).change();
