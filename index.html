@@ -25,6 +25,9 @@
     #copied-note {
         animation: fade-out 1s forwards;
     }
+    hr {
+        margin-top: 20rem;
+    }
 
     [lang] {
         display: none;
@@ -79,10 +82,8 @@
     </div>
 </nav>
 
-<hr>
-
 <main>
-    <div class="container py-5">
+    <div class="container vh-100 d-flex align-items-center py-5">
         <div class="card-deck">
             <div class="card">
                 <div class="card-body">
@@ -148,9 +149,9 @@
         </div>
     </div>
 
-    <hr id="backup-with-dev-tools">
+    <hr>
 
-    <div class="p-5">
+    <div class="p-5" id="backup-with-dev-tools">
         <h1>
             <span lang="en-US">Export Snapshot from Grafana Dashboard UI</span>
             <span lang="zh-CN">在 Grafana 界面上导出</span>
@@ -249,9 +250,9 @@
         <p><a href="#top">↑ 返回</a></p>
     </div>-->
 
-    <hr id="viz">
+    <hr>
 
-    <div class="p-5">
+    <div class="p-5" id="viz">
         <h1>
             <span lang="en-US">Visualize Snapshot File on Web Page</span>
             <span lang="zh-CN">在网页上检视快照文件</span>
@@ -287,9 +288,9 @@
         </a></p>
     </div>
 
-    <hr id="restore-with-curl">
+    <hr>
 
-    <div class="p-5">
+    <div class="p-5" id="restore-with-curl">
         <h1>
             <span lang="en-US">Import Grafana Snapshot File with cURL or Wget</span>
             <span lang="zh-CN">使用 cURL 或 Wget 导入 Grafana 快照文件</span>
@@ -353,9 +354,9 @@
         </a></p>
     </div>
 
-    <hr id="restore-with-cli">
+    <hr>
 
-    <div class="p-5">
+    <div class="p-5" id="restore-with-cli">
         <h1>
             <span lang="en-US">Import Grafana Snapshot File with “grafsnap”</span>
             <span lang="zh-CN">使用 grafsnap 命令行工具导入 Grafana 快照文件</span>
