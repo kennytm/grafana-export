@@ -30,17 +30,17 @@
         display: none;
     }
 
-    p:lang(en-US) {
+    p[lang=en-US] {
         display: block;
     }
-    span:lang(en-US) {
+    span[lang=en-US] {
         display: inline;
     }
 </style>
 
 </head>
 <body>
-<nav class="navbar navbar-expand navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand navbar-light bg-light fixed-top">
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -79,6 +79,8 @@
         </form>
     </div>
 </nav>
+
+<hr>
 
 <main>
     <div class="container py-5">
@@ -319,21 +321,21 @@
                     <span lang="en-US">in which:</span>
                     <span lang="zh-CN">其中参数是：</span>
                     <span lang="zh-TW">其中參數是：</span>
-                    <dl class="row">
-                        <dt class="col-xl-3 col-lg-4">http://admin:admin@localhost:3000</dt>
-                        <dd class="col-xl-9 col-lg-8">
-                            <span lang="en-US">Login name, password, host and port of Grafana server</span>
-                            <span lang="zh-CN">Grafana 服务器的登入用户名、密码、地址和端口</span>
-                            <span lang="zh-TW">Grafana 伺服器的登入用戶名稱、密碼、位址和通訊埠</span>
-                        </dd>
-                        <dt class="col-xl-3 col-lg-4">/root/snap1.json</dt>
-                        <dd class="col-xl-9 col-lg-8">
-                            <span lang="en-US">Path of the imported JSON file</span>
-                            <span lang="zh-CN">要导入的 JSON 文件路径</span>
-                            <span lang="zh-TW">要匯入的 JSON 檔案路徑</span>
-                        </dd>
-                    </dl>
                 </p>
+                <dl class="row">
+                    <dt class="col-xl-3 col-lg-4">http://admin:admin@localhost:3000</dt>
+                    <dd class="col-xl-9 col-lg-8">
+                        <span lang="en-US">Login name, password, host and port of Grafana server</span>
+                        <span lang="zh-CN">Grafana 服务器的登入用户名、密码、地址和端口</span>
+                        <span lang="zh-TW">Grafana 伺服器的登入用戶名稱、密碼、位址和通訊埠</span>
+                    </dd>
+                    <dt class="col-xl-3 col-lg-4">/root/snap1.json</dt>
+                    <dd class="col-xl-9 col-lg-8">
+                        <span lang="en-US">Path of the imported JSON file</span>
+                        <span lang="zh-CN">要导入的 JSON 文件路径</span>
+                        <span lang="zh-TW">要匯入的 JSON 檔案路徑</span>
+                    </dd>
+                </dl>
             </li>
             <li>
                 <p lang="en-US">Output like this is shown after finishing. Open the URL at the end to view the imported snapshot.</p>
@@ -380,21 +382,21 @@
                     <span lang="en-US">in which:</span>
                     <span lang="zh-CN">其中参数是：</span>
                     <span lang="zh-TW">其中參數是：</span>
-                    <dl class="row">
-                        <dt class="col-xl-3 col-lg-4">http://admin:admin@localhost:3000</dt>
-                        <dd class="col-xl-9 col-lg-8">
-                            <span lang="en-US">Login name, password, host and port of Grafana server</span>
-                            <span lang="zh-CN">Grafana 服务器的登入用户名、密码、地址和端口</span>
-                            <span lang="zh-TW">Grafana 伺服器的登入用戶名稱、密碼、位址和通訊埠</span>
-                        </dd>
-                        <dt class="col-xl-3 col-lg-4">/root/snap1.json</dt>
-                        <dd class="col-xl-9 col-lg-8">
-                            <span lang="en-US">Path of the imported JSON file</span>
-                            <span lang="zh-CN">要导入的 JSON 文件路径</span>
-                            <span lang="zh-TW">要匯入的 JSON 檔案路徑</span>
-                        </dd>
-                    </dl>
                 </p>
+                <dl class="row">
+                    <dt class="col-xl-3 col-lg-4">http://admin:admin@localhost:3000</dt>
+                    <dd class="col-xl-9 col-lg-8">
+                        <span lang="en-US">Login name, password, host and port of Grafana server</span>
+                        <span lang="zh-CN">Grafana 服务器的登入用户名、密码、地址和端口</span>
+                        <span lang="zh-TW">Grafana 伺服器的登入用戶名稱、密碼、位址和通訊埠</span>
+                    </dd>
+                    <dt class="col-xl-3 col-lg-4">/root/snap1.json</dt>
+                    <dd class="col-xl-9 col-lg-8">
+                        <span lang="en-US">Path of the imported JSON file</span>
+                        <span lang="zh-CN">要导入的 JSON 文件路径</span>
+                        <span lang="zh-TW">要匯入的 JSON 檔案路徑</span>
+                    </dd>
+                </dl>
             </li>
             <li>
                 <p lang="en-US">Output like this is shown after finishing. Open the URL at the end to view the imported snapshot.</p>
@@ -460,27 +462,27 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
                     <span lang="en-US">in which:</span>
                     <span lang="zh-CN">其中参数是：</span>
                     <span lang="zh-TW">其中參數是：</span>
-                    <dl class="row">
-                        <dt class="col-xl-3 col-lg-4">-b 'http://localhost:3000/'</dt>
-                        <dd class="col-xl-9 col-lg-8">
-                            <span lang="en-US">Host and port of Grafana server</span>
-                            <span lang="zh-CN">Grafana 服务器的地址和端口</span>
-                            <span lang="zh-TW">Grafana 伺服器的位址和通訊埠</span>
-                        </dd>
-                        <dt class="col-xl-3 col-lg-4">-k 'admin:admin'</dt>
-                        <dd class="col-xl-9 col-lg-8">
-                            <span lang="en-US">Login name and password; you can also use an <a href="https://grafana.com/docs/grafana/latest/http_api/auth/">API Key</a></span>
-                            <span lang="zh-CN">登入用户名和密码；亦可以使用 <a href="https://grafana.com/docs/grafana/latest/http_api/auth/">API Key</a></span>
-                            <span lang="zh-TW">登入用戶名稱和密碼；亦可以使用 <a href="https://grafana.com/docs/grafana/latest/http_api/auth/">API Key</a></span>
-                        </dd>
-                        <dt class="col-xl-3 col-lg-4">~/snap1.json ~/snap2.json</dt>
-                        <dd class="col-xl-9 col-lg-8">
-                            <span lang="en-US">Paths of the (multiple) imported JSON files</span>
-                            <span lang="zh-CN">要导入的 JSON 文件路径，可一次导入多个</span>
-                            <span lang="zh-TW">要匯入的 JSON 檔案路徑，可一次匯入多個</span>
-                        </dd>
-                    </dl>
                 </p>
+                <dl class="row">
+                    <dt class="col-xl-3 col-lg-4">-b 'http://localhost:3000/'</dt>
+                    <dd class="col-xl-9 col-lg-8">
+                        <span lang="en-US">Host and port of Grafana server</span>
+                        <span lang="zh-CN">Grafana 服务器的地址和端口</span>
+                        <span lang="zh-TW">Grafana 伺服器的位址和通訊埠</span>
+                    </dd>
+                    <dt class="col-xl-3 col-lg-4">-k 'admin:admin'</dt>
+                    <dd class="col-xl-9 col-lg-8">
+                        <span lang="en-US">Login name and password; you can also use an <a href="https://grafana.com/docs/grafana/latest/http_api/auth/">API Key</a></span>
+                        <span lang="zh-CN">登入用户名和密码；亦可以使用 <a href="https://grafana.com/docs/grafana/latest/http_api/auth/">API Key</a></span>
+                        <span lang="zh-TW">登入用戶名稱和密碼；亦可以使用 <a href="https://grafana.com/docs/grafana/latest/http_api/auth/">API Key</a></span>
+                    </dd>
+                    <dt class="col-xl-3 col-lg-4">~/snap1.json ~/snap2.json</dt>
+                    <dd class="col-xl-9 col-lg-8">
+                        <span lang="en-US">Paths of the (multiple) imported JSON files</span>
+                        <span lang="zh-CN">要导入的 JSON 文件路径，可一次导入多个</span>
+                        <span lang="zh-TW">要匯入的 JSON 檔案路徑，可一次匯入多個</span>
+                    </dd>
+                </dl>
             </li>
             <li>
                 <p lang="en-US">Output like this is shown after finishing. Open each URL to view the corresponding snapshot.</p>
@@ -512,20 +514,22 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
 <script>
     $(document).ready(function() {
         var iframe = $('#script-iframe');
-        fetch(iframe.attr('src')).then(function(resp) {
-            resp.text().then(function(text) {
-                iframe.replaceWith($('<textarea class="w-100" readonly rows="5" cols="100">').val(text));
-                $('#copy-script-text').hide();
-                $('#copy-script-button').show().click(function() {
-                    $('#script-container > textarea').focus().select();
-                    document.execCommand('copy');
-                    var copiedNote = $('#copied-note').show();
-                    setTimeout(function() {
-                        copiedNote.hide();
-                    }, 1000);
-                });
+
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            iframe.replaceWith($('<textarea class="w-100" readonly rows="5" cols="100">').val(xhr.responseText));
+            $('#copy-script-text').hide();
+            $('#copy-script-button').show().click(function() {
+                $('#script-container > textarea').focus().select();
+                document.execCommand('copy');
+                var copiedNote = $('#copied-note').show();
+                setTimeout(function() {
+                    copiedNote.hide();
+                }, 1000);
             });
-        });
+        };
+        xhr.open('GET', iframe.attr('src'));
+        xhr.send();
 
         $('.dropdown-toggle').on('focus blur', function(e) {
             var menu = $(this).siblings('.dropdown-menu');
@@ -548,7 +552,7 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
                 var rule = rules[i];
                 var st = rule.selectorText;
                 if (st) {
-                    rule.selectorText = st.replace(/:lang\([^)]+\)/, ':lang('+this.value+')');
+                    rule.selectorText = st.replace(/\[lang=[^\]]+\]/, '[lang='+this.value+']');
                 }
             }
             document.title = localizedTitles[this.value];
