@@ -64,8 +64,7 @@
                     <span lang="zh-TW">匯入</span>
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#restore-with-curl">cURL</a>
-                    <a class="dropdown-item" href="#restore-with-wget">Wget</a>
+                    <a class="dropdown-item" href="#restore-with-curl">cURL / Wget</a>
                     <a class="dropdown-item" href="#restore-with-cli">grafsnap</a>
                 </div>
             </li>
@@ -134,14 +133,9 @@
                     </p>
                     <ul class="card-text">
                         <li><a href="#restore-with-curl">
-                            <span lang="en-US">Using cURL</span>
-                            <span lang="zh-CN">使用 cURL</span>
-                            <span lang="zh-TW">使用 cURL</span>
-                        </a></li>
-                        <li><a href="#restore-with-wget">
-                            <span lang="en-US">Using Wget</span>
-                            <span lang="zh-CN">使用 Wget</span>
-                            <span lang="zh-TW">使用 Wget</span>
+                            <span lang="en-US">Using cURL or Wget</span>
+                            <span lang="zh-CN">使用 cURL 或 Wget</span>
+                            <span lang="zh-TW">使用 cURL 或 Wget</span>
                         </a></li>
                         <li><a href="#restore-with-cli">
                             <span lang="en-US">Using CLI tool “grafsnap”</span>
@@ -297,14 +291,14 @@
 
     <div class="p-5">
         <h1>
-            <span lang="en-US">Import Grafana Snapshot File with cURL</span>
-            <span lang="zh-CN">使用 cURL 导入 Grafana 快照文件</span>
-            <span lang="zh-TW">使用 cURL 匯入 Grafana 快照檔案</span>
+            <span lang="en-US">Import Grafana Snapshot File with cURL or Wget</span>
+            <span lang="zh-CN">使用 cURL 或 Wget 导入 Grafana 快照文件</span>
+            <span lang="zh-TW">使用 cURL 或 Wget 匯入 Grafana 快照檔案</span>
         </h1>
 
-        <p lang="en-US">Suitable when there is an existing Grafana instance, cURL is accessible, but third-party software cannot be used.</p>
-        <p lang="zh-CN">适用于已有现成的 Grafana 实例，可执行 cURL，但不方便下载第三方软件。</p>
-        <p lang="zh-TW">適用於已有現成的 Grafana 實例，可運行 cURL，但不方便下載第三方軟體。</p>
+        <p lang="en-US">Suitable when there is an existing Grafana instance, cURL or Wget is accessible, but third-party software cannot be used.</p>
+        <p lang="zh-CN">适用于已有现成的 Grafana 实例，可执行 cURL 或 Wget，但不方便下载第三方软件。</p>
+        <p lang="zh-TW">適用於已有現成的 Grafana 實例，可運行 cURL 或 Wget，但不方便下載第三方軟體。</p>
 
         <ol>
             <li>
@@ -313,71 +307,15 @@
                 <p lang="zh-TW">準備好要匯入的儀表板快照 JSON 檔案，以及 Grafana 的位址和登入用戶密碼。</p>
             </li>
             <li>
+                <div id="import-buttons" class="btn-group float-right">
+                    <button data-target="curl-script" type="button" class="btn btn-outline-dark btn-sm">curl</button>
+                    <button data-target="wget-script" type="button" class="btn btn-outline-dark btn-sm">wget</button>
+                </div>
                 <p lang="en-US">Execute import command:</p>
                 <p lang="zh-CN">执行导入：</p>
                 <p lang="zh-TW">運行匯入指令：</p>
-                <pre><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --data-binary @<mark>/root/snap1.json</mark></code></pre>
-                <p>
-                    <span lang="en-US">in which:</span>
-                    <span lang="zh-CN">其中参数是：</span>
-                    <span lang="zh-TW">其中參數是：</span>
-                </p>
-                <dl class="row">
-                    <dt class="col-xl-3 col-lg-4">http://admin:admin@localhost:3000</dt>
-                    <dd class="col-xl-9 col-lg-8">
-                        <span lang="en-US">Login name, password, host and port of Grafana server</span>
-                        <span lang="zh-CN">Grafana 服务器的登入用户名、密码、地址和端口</span>
-                        <span lang="zh-TW">Grafana 伺服器的登入用戶名稱、密碼、位址和通訊埠</span>
-                    </dd>
-                    <dt class="col-xl-3 col-lg-4">/root/snap1.json</dt>
-                    <dd class="col-xl-9 col-lg-8">
-                        <span lang="en-US">Path of the imported JSON file</span>
-                        <span lang="zh-CN">要导入的 JSON 文件路径</span>
-                        <span lang="zh-TW">要匯入的 JSON 檔案路徑</span>
-                    </dd>
-                </dl>
-            </li>
-            <li>
-                <p lang="en-US">Output like this is shown after finishing. Open the URL at the end to view the imported snapshot.</p>
-                <p lang="zh-CN">完成后会打印类似这样的反馈，打开最后列出的 URL 即可检视快照。</p>
-                <p lang="zh-TW">完成後會輸出類似這樣的結果，開啟最後列出的 URL 即可檢視快照。</p>
-                <pre><code>{"deleteKey":"8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
- "deleteUrl":"http://localhost:3000/api/snapshots-delete/8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
- "key":"icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN",
- "url":"<mark>http://localhost:3000/dashboard/snapshot/icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN</mark>"}</code></pre>
-            </li>
-        </ol>
-        <p><a href="#">↑
-            <span lang="en-US">Return</span>
-            <span lang="zh-CN">返回</span>
-            <span lang="zh-TW">返回</span>
-        </a></p>
-    </div>
-
-    <hr id="restore-with-wget">
-
-    <div class="p-5">
-        <h1>
-            <span lang="en-US">Import Grafana Snapshot File with Wget</span>
-            <span lang="zh-CN">使用 Wget 导入 Grafana 快照文件</span>
-            <span lang="zh-TW">使用 Wget 匯入 Grafana 快照檔案</span>
-        </h1>
-
-        <p lang="en-US">Suitable when there is an existing Grafana instance, Wget is accessible, but third-party software cannot be used.</p>
-        <p lang="zh-CN">适用于已有现成的 Grafana 实例，可执行 Wget，但不方便下载第三方软件。</p>
-        <p lang="zh-TW">適用於已有現成的 Grafana 實例，可運行 Wget，但不方便下載第三方軟體。</p>
-
-        <ol>
-            <li>
-                <p lang="en-US">Prepare the Dashboard Snapshort JSON file, and note down the Grafana URL, login name and password.</p>
-                <p lang="zh-CN">准备好要导入的监控快照 JSON 文件，以及 Grafana 的地址和登入用户密码。</p>
-                <p lang="zh-TW">準備好要匯入的儀表板快照 JSON 檔案，以及 Grafana 的位址和登入用戶密碼。</p>
-            </li>
-            <li>
-                <p lang="en-US">Execute import command:</p>
-                <p lang="zh-CN">执行导入：</p>
-                <p lang="zh-TW">運行匯入指令：</p>
-                <pre><code>wget -qO- --header 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --post-file <mark>/root/snap1.json</mark></code></pre>
+                <pre class="import-script" id="curl-script"><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --data-binary @<mark>/root/snap1.json</mark></code></pre>
+                <pre class="import-script" id="wget-script" style="display:none;"><code>wget -qO- --header 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --post-file <mark>/root/snap1.json</mark></code></pre>
                 <p>
                     <span lang="en-US">in which:</span>
                     <span lang="zh-CN">其中参数是：</span>
@@ -557,6 +495,11 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
             }
             document.title = localizedTitles[this.value];
         }).change();
+
+        $('#import-buttons > button').click(function() {
+            $('.import-script').hide();
+            $('#' + $(this).data('target')).show();
+        });
     });
 </script>
 </body>
