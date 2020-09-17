@@ -16,8 +16,10 @@ declare interface Annotations {
 // https://github.com/grafana/grafana/blob/v6.1.6/public/app/features/dashboard/state/DashboardModel.ts
 declare class DashboardModel {
   readonly refresh?: string;
-  readonly title: string;
   readonly annotations: Annotations;
+  title: string;
+  id: any;
+  uid: string | null;
   time: TimeRange;
   snapshot?: Snapshot;
 

@@ -126,7 +126,13 @@ try {
       // for the second click, take the dashboard snapshot.
       const timestamp = dashboard.snapshot!.timestamp.toISOString();
       const clone = dashboard.getSaveModelClone();
+
+      const title = clone.title;
+
       clone.time = this.timeSrv.timeRange();
+      clone.id = null;
+      clone.uid = null;
+      clone.title = `${title} (Export at ${timestamp})`;
       const snapshot = {
         meta: {
           isSnapshot: true,
@@ -144,7 +150,7 @@ try {
       });
       const url = URL.createObjectURL(blob);
       const a = $("<a>");
-      a.prop({ href: url, download: `${clone.title}_${timestamp}.json` });
+      a.prop({ href: url, download: `${title}_${timestamp}.json` });
       $(document.body).append(a);
       a[0].click();
       setTimeout(() => {

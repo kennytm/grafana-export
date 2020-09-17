@@ -217,7 +217,7 @@
                 <span lang="zh-CN">执行导入：</span>
                 <span lang="zh-TW">運行匯入指令：</span>
               </p>
-              <pre><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --data-binary @<mark>/root/snap1.json</mark></code></pre>
+              <pre><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/dashboards/import' --data-binary @<mark>/root/snap1.json</mark></code></pre>
               <p>
                 <span lang="en-US">in which:</span>
                 <span lang="zh-CN">其中参数是：</span>
@@ -249,20 +249,19 @@
             <li>
               <p>
                 <span lang="en-US">
-                  Output like this is shown after finishing. Open the URL at the
-                  end to view the imported snapshot.
+                  Output like this is shown after finishing. You will see the
+                  imported Dashboard in your Grafana instance.
                 </span>
                 <span lang="zh-CN">
-                  完成后会打印类似这样的反馈，打开最后列出的 URL 即可检视快照。
+                  完成后会打印类似这样的反馈。打开 Grafana
+                  即可看到导入的监控面板。
                 </span>
                 <span lang="zh-TW">
-                  完成後會輸出類似這樣的結果，開啟最後列出的 URL 即可檢視快照。
+                  完成後會輸出類似這樣的結果。開啟 Grafana
+                  即可檢視匯入的監控面板。
                 </span>
               </p>
-              <pre><code>{"deleteKey":"8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
- "deleteUrl":"http://localhost:3000/api/snapshots-delete/8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
- "key":"icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN",
- "url":"<mark>http://localhost:3000/dashboard/snapshot/icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN</mark>"}</code></pre>
+              <pre><code>{"pluginId":"","title":".....","imported":true,"importedUri":"db/....-at-2020-09-17t07-42-04-521z", ... }</code></pre>
             </li>
           </ol>
           <p>
