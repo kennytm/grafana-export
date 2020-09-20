@@ -172,13 +172,13 @@ this.g.text(`${t.h}: ${o}% (${e}/${i})`),this._.prop({value:e,max:i}),i&gt;e?2!=
 this.v.prop(&quot;disabled&quot;,!1).text(t.m).one(&quot;click&quot;,()=&gt;this.N())):this.N()}}$(){const t=this.u.dashboard
 this.I=1,this.v.prop(&quot;disabled&quot;,!0),this.O=t.refresh,this.u.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
 t.snapshot={timestamp:new Date},t.startRefresh()}N(){
-const t=this.u.dashboard,s=t.snapshot.timestamp.toISOString(),i=t.getSaveModelClone()
-i.time=this.u.timeRange()
-const o={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:s},dashboard:i}
+const t=this.u.dashboard,s=t.snapshot.timestamp.toISOString(),i=t.getSaveModelClone(),o=i.title
+i.time=this.u.timeRange(),i.id=0,i.T=&quot;&quot;,i.title=`${o} (exported at ${s})`
+const n={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:s},dashboard:i}
 this.S()
-const n=new Blob([JSON.stringify(o)],{type:&quot;application/json&quot;}),a=URL.createObjectURL(n),r=e(&quot;&lt;a&gt;&quot;)
-r.prop({href:a,download:`${i.title}_${s}.json`}),e(document.body).append(r),r[0].click(),setTimeout(()=&gt;{
-URL.revokeObjectURL(a),r.remove()},0)}S(){const t=this.u.dashboard
+const a=new Blob([JSON.stringify(n)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(a),h=e(&quot;&lt;a&gt;&quot;)
+h.prop({href:r,download:`${o}_${s}.json`}),e(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(r),h.remove()},0)}S(){const t=this.u.dashboard
 delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
 this.O&amp;&amp;this.u.setAutoRefresh(this.O),clearInterval(this.j),this.k.remove(),i.forEach(()=&gt;s.deleteRule(0))}}new o
 }catch(e){console.error(e),alert(t.t)}</textarea>
@@ -203,13 +203,13 @@ this.g.text(`${t.h}: ${o}% (${e}/${s})`),this._.prop({value:e,max:s}),s&gt;e?2!=
 this.v.prop(&quot;disabled&quot;,!1).text(t.m).one(&quot;click&quot;,()=&gt;this.U())):this.U()}}$(){const t=this.u.dashboard
 this.S=1,this.v.prop(&quot;disabled&quot;,!0),this.L=t.refresh,this.u.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
 t.snapshot={timestamp:new Date},t.startRefresh()}U(){
-const t=this.u.dashboard,i=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone()
-s.time=this.u.timeRange()
-const o={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i},dashboard:s}
+const t=this.u.dashboard,i=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone(),o=s.title
+s.time=this.u.timeRange(),s.id=0,s.O=&quot;&quot;,s.title=`${o} (exported at ${i})`
+const n={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i},dashboard:s}
 this.I()
-const n=new Blob([JSON.stringify(o)],{type:&quot;application/json&quot;}),a=URL.createObjectURL(n),h=e(&quot;&lt;a&gt;&quot;)
-h.prop({href:a,download:`${s.title}_${i}.json`}),e(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
-URL.revokeObjectURL(a),h.remove()},0)}I(){const t=this.u.dashboard
+const a=new Blob([JSON.stringify(n)],{type:&quot;application/json&quot;}),h=URL.createObjectURL(a),r=e(&quot;&lt;a&gt;&quot;)
+r.prop({href:h,download:`${o}_${i}.json`}),e(document.body).append(r),r[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(h),r.remove()},0)}I(){const t=this.u.dashboard
 delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
 this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remove(),s.forEach(()=&gt;i.deleteRule(0))}}new o
 }catch(e){console.error(e),alert(t.t)}</textarea>
@@ -234,13 +234,13 @@ this.g.text(`${t.h}: ${o}% (${e}/${s})`),this._.prop({value:e,max:s}),s&gt;e?2!=
 this.v.prop(&quot;disabled&quot;,!1).text(t.m).one(&quot;click&quot;,()=&gt;this.U())):this.U()}}$(){const t=this.u.dashboard
 this.S=1,this.v.prop(&quot;disabled&quot;,!0),this.L=t.refresh,this.u.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
 t.snapshot={timestamp:new Date},t.startRefresh()}U(){
-const t=this.u.dashboard,i=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone()
-s.time=this.u.timeRange()
-const o={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i},dashboard:s}
+const t=this.u.dashboard,i=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone(),o=s.title
+s.time=this.u.timeRange(),s.id=0,s.O=&quot;&quot;,s.title=`${o} (exported at ${i})`
+const n={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i},dashboard:s}
 this.I()
-const n=new Blob([JSON.stringify(o)],{type:&quot;application/json&quot;}),a=URL.createObjectURL(n),h=e(&quot;&lt;a&gt;&quot;)
-h.prop({href:a,download:`${s.title}_${i}.json`}),e(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
-URL.revokeObjectURL(a),h.remove()},0)}I(){const t=this.u.dashboard
+const a=new Blob([JSON.stringify(n)],{type:&quot;application/json&quot;}),h=URL.createObjectURL(a),r=e(&quot;&lt;a&gt;&quot;)
+r.prop({href:h,download:`${o}_${i}.json`}),e(document.body).append(r),r[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(h),r.remove()},0)}I(){const t=this.u.dashboard
 delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
 this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remove(),s.forEach(()=&gt;i.deleteRule(0))}}new o
 }catch(e){console.error(e),alert(t.t)}</textarea>
@@ -380,8 +380,8 @@ this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remov
                 <p lang="en-US">Execute import command:</p>
                 <p lang="zh-CN">执行导入：</p>
                 <p lang="zh-TW">運行匯入指令：</p>
-                <pre class="import-script" id="curl-script"><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --data-binary @<mark>/root/snap1.json</mark></code></pre>
-                <pre class="import-script" id="wget-script" style="display:none;"><code>wget -qO- --header 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --post-file <mark>/root/snap1.json</mark></code></pre>
+                <pre class="import-script" id="curl-script"><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/dashboards/import' --data-binary @<mark>/root/snap1.json</mark></code></pre>
+                <pre class="import-script" id="wget-script" style="display:none;"><code>wget -qO- --header 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/dashboards/import' --post-file <mark>/root/snap1.json</mark></code></pre>
                 <p>
                     <span lang="en-US">in which:</span>
                     <span lang="zh-CN">其中参数是：</span>
@@ -403,13 +403,14 @@ this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remov
                 </dl>
             </li>
             <li>
-                <p lang="en-US">Output like this is shown after finishing. Open the URL at the end to view the imported snapshot.</p>
-                <p lang="zh-CN">完成后会打印类似这样的反馈，打开最后列出的 URL 即可检视快照。</p>
-                <p lang="zh-TW">完成後會輸出類似這樣的結果，開啟最後列出的 URL 即可檢視快照。</p>
-                <pre><code>{"deleteKey":"8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
- "deleteUrl":"http://localhost:3000/api/snapshots-delete/8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
- "key":"icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN",
- "url":"<mark>http://localhost:3000/dashboard/snapshot/icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN</mark>"}</code></pre>
+                <p lang="en-US">Output like this is shown after finishing. Open the marked URL to view the imported snapshot.</p>
+                <p lang="zh-CN">完成后会打印类似这样的反馈，打开标示出的 URL 即可检视快照。</p>
+                <p lang="zh-TW">完成後會輸出類似這樣的結果，開啟標示出的 URL 即可檢視快照。</p>
+                <pre><code>{"pluginId":"",
+ "title":"New Dashboard (exported at 2020-01-01T12:00:00.000Z)","imported":true,
+ "importedUri":"db/new-dashboard-exported-at-2020-01-01t12-00-00-000z",
+ "importedUrl":"<mark>/d/Q6RuHYIWk/new-dashboard-exported-at-2020-01-01t12-00-00-000z</mark>",
+ "slug":"new-dashboard-exported-at-2020-01-01t12-00-00-000z",…}</code></pre>
             </li>
         </ol>
         <p><a href="#">↑
