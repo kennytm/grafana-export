@@ -50,15 +50,6 @@ const LABELS: {[_ in Language]: Label} = {
     },
 };
 
-function getLanguage(): Language {
-    const browserLanguage = navigator.language;
-    if (/^zh-/.test(browserLanguage)) {
-        if (/\b(TW|HK|MO|Hant)\b/.test(browserLanguage)) {
-            return 'zh-TW';
-        }
-        return 'zh-CN';
-    }
-    return 'en-US';
-}
+declare const LANGUAGE: Language;
 
-const L = LABELS[getLanguage()];
+const L = LABELS[LANGUAGE];

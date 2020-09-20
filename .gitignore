@@ -1,6 +1,5 @@
 bin/
 node_modules/
 yarn-error.log
-scripts/dist/*.js
-!scripts/dist/*.min.js
+scripts/dist/
 *.exe

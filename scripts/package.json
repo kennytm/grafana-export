@@ -5,13 +5,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean": "rm -f dist/*.js",
+    "clean": "rm -rf dist",
     "build": "tsc -p .",
-    "release": "terser -e --config-file terser.json -o dist/index.min.js dist/index.js"
+    "release": "node ./release.mjs"
   },
   "devDependencies": {
     "terser": "^5.2.1",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "escape-html": "^1.0.3"
   },
   "dependencies": {
     "@types/angular": "=1.6.54"

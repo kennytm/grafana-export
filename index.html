@@ -39,6 +39,9 @@
     span[lang=en-US] {
         display: inline;
     }
+    textarea[lang=en-US] {
+        display: block;
+    }
 </style>
 
 </head>
@@ -163,12 +166,7 @@
         <ol>
             <li>
                 <p>
-                    <span id="copy-script-text">
-                        <span lang="en-US">Copy the entire script below</span>
-                        <span lang="zh-CN">复制以下脚本</span>
-                        <span lang="zh-TW">複製以下指令碼</span>
-                    </span>
-                    <button type="button" class="btn btn-outline-primary" id="copy-script-button" style="display:none;">
+                    <button type="button" class="btn btn-outline-primary" id="copy-script-button">
                         <span lang="en-US">Copy the script below</span>
                         <span lang="zh-CN">复制以下脚本</span>
                         <span lang="zh-TW">複製以下指令碼</span>
@@ -176,11 +174,104 @@
                     <em id="copied-note" style="display:none;">
                         <span lang="en-US">Copied!</span>
                         <span lang="zh-CN">已复制！</span>
-                        <span lang="zh-TW">已複制！</span>
+                        <span lang="zh-TW">已複製！</span>
                     </em>
                 </p>
                 <p class="w-100" id="script-container">
-                    <iframe src="scripts/dist/index.min.js" id="script-iframe" class="w-100"></iframe>
+                    <textarea lang="en-US" class="w-100" readonly rows="5" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+&quot;use strict&quot;
+const t={t:&quot;Script failed to run. Please ensure it is running on the Grafana v6.x.x dashboard page.&quot;,
+s:&quot;Going to export snapshot of the current dashboard: &quot;,i:&quot;Note: Only metrics from visible panels can be exported&quot;,
+o:&quot;Number of panels&quot;,h:&quot;Loading panels&quot;,l:&quot;Expand all rows&quot;,p:&quot;Export&quot;,m:&quot;Export immediately&quot;,cancel:&quot;Cancel&quot;}
+try{
+const e=angular.element,s=document.styleSheets[0],i=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+class o{constructor(){const o=e(document).injector()
+this.u=o.get(&quot;timeSrv&quot;)
+const n=this.u.dashboard
+i.forEach(t=&gt;s.insertRule(t,0)),this.g=e(&quot;&lt;span&gt;&quot;),this._=e(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this.v=e(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;this.$()),
+this.P=e(&quot;&lt;button&gt;&quot;).text(t.l).on(&quot;click&quot;,()=&gt;n.expandRows())
+const a=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
+this.k=e(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(e(&quot;&lt;p&gt;&quot;).text(t.s).append(e(&quot;&lt;strong&gt;&quot;).text(n.title)),e(&quot;&lt;p&gt;&quot;).text(t.i).append(this.P),e(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this._,this.g),e(`&lt;p style=&quot;display:flex;${a}&quot;&gt;`).append(this.v,e(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;this.S()))),
+this.I=0,e(document.body).append(this.k),this.j=setInterval(()=&gt;this.L(),500)}L(){const s=e(&quot;.panel-loading&quot;),i=s.length
+if(0===this.I)this.g.text(`${t.o}: ${i}`),this.v.prop(&quot;disabled&quot;,0===i)
+else{const e=s.filter(&quot;.ng-hide&quot;).length,o=(100*e/i||0).toFixed(1)
+this.g.text(`${t.h}: ${o}% (${e}/${i})`),this._.prop({value:e,max:i}),i&gt;e?2!==this.I&amp;&amp;(this.I=2,
+this.v.prop(&quot;disabled&quot;,!1).text(t.m).one(&quot;click&quot;,()=&gt;this.N())):this.N()}}$(){const t=this.u.dashboard
+this.I=1,this.v.prop(&quot;disabled&quot;,!0),this.O=t.refresh,this.u.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
+t.snapshot={timestamp:new Date},t.startRefresh()}N(){
+const t=this.u.dashboard,s=t.snapshot.timestamp.toISOString(),i=t.getSaveModelClone()
+i.time=this.u.timeRange()
+const o={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:s},dashboard:i}
+this.S()
+const n=new Blob([JSON.stringify(o)],{type:&quot;application/json&quot;}),a=URL.createObjectURL(n),r=e(&quot;&lt;a&gt;&quot;)
+r.prop({href:a,download:`${i.title}_${s}.json`}),e(document.body).append(r),r[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(a),r.remove()},0)}S(){const t=this.u.dashboard
+delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
+this.O&amp;&amp;this.u.setAutoRefresh(this.O),clearInterval(this.j),this.k.remove(),i.forEach(()=&gt;s.deleteRule(0))}}new o
+}catch(e){console.error(e),alert(t.t)}</textarea>
+                    <textarea lang="zh-CN" class="w-100" readonly rows="5" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+&quot;use strict&quot;
+const t={t:&quot;执行失败。请确保是在 Grafana v6.x.x 的监控网页上执行脚本。&quot;,i:&quot;将导出当前的监控页面：&quot;,s:&quot;注意：只有已展开面板内的监控会被导出&quot;,o:&quot;面板数量&quot;,h:&quot;加载面板中&quot;,l:&quot;展开所有面板&quot;,
+p:&quot;导出&quot;,m:&quot;立刻导出&quot;,cancel:&quot;取消&quot;}
+try{
+const e=angular.element,i=document.styleSheets[0],s=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+class o{constructor(){const o=e(document).injector()
+this.u=o.get(&quot;timeSrv&quot;)
+const n=this.u.dashboard
+s.forEach(t=&gt;i.insertRule(t,0)),this.g=e(&quot;&lt;span&gt;&quot;),this._=e(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this.v=e(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;this.$()),
+this.k=e(&quot;&lt;button&gt;&quot;).text(t.l).on(&quot;click&quot;,()=&gt;n.expandRows())
+const a=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
+this.P=e(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(e(&quot;&lt;p&gt;&quot;).text(t.i).append(e(&quot;&lt;strong&gt;&quot;).text(n.title)),e(&quot;&lt;p&gt;&quot;).text(t.s).append(this.k),e(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this._,this.g),e(`&lt;p style=&quot;display:flex;${a}&quot;&gt;`).append(this.v,e(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;this.I()))),
+this.S=0,e(document.body).append(this.P),this.j=setInterval(()=&gt;this.T(),500)}T(){const i=e(&quot;.panel-loading&quot;),s=i.length
+if(0===this.S)this.g.text(`${t.o}: ${s}`),this.v.prop(&quot;disabled&quot;,0===s)
+else{const e=i.filter(&quot;.ng-hide&quot;).length,o=(100*e/s||0).toFixed(1)
+this.g.text(`${t.h}: ${o}% (${e}/${s})`),this._.prop({value:e,max:s}),s&gt;e?2!==this.S&amp;&amp;(this.S=2,
+this.v.prop(&quot;disabled&quot;,!1).text(t.m).one(&quot;click&quot;,()=&gt;this.U())):this.U()}}$(){const t=this.u.dashboard
+this.S=1,this.v.prop(&quot;disabled&quot;,!0),this.L=t.refresh,this.u.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
+t.snapshot={timestamp:new Date},t.startRefresh()}U(){
+const t=this.u.dashboard,i=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone()
+s.time=this.u.timeRange()
+const o={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i},dashboard:s}
+this.I()
+const n=new Blob([JSON.stringify(o)],{type:&quot;application/json&quot;}),a=URL.createObjectURL(n),h=e(&quot;&lt;a&gt;&quot;)
+h.prop({href:a,download:`${s.title}_${i}.json`}),e(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(a),h.remove()},0)}I(){const t=this.u.dashboard
+delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
+this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remove(),s.forEach(()=&gt;i.deleteRule(0))}}new o
+}catch(e){console.error(e),alert(t.t)}</textarea>
+                    <textarea lang="zh-TW" class="w-100" readonly rows="5" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+&quot;use strict&quot;
+const t={t:&quot;執行失敗。請確保是在 Grafana v6.x.x 的儀表板上執行劇本。&quot;,i:&quot;即將匯出當前儀表板：&quot;,s:&quot;注意：只能匯出已展開的面板內的資料&quot;,o:&quot;面板數量&quot;,h:&quot;載入面板中&quot;,l:&quot;展開所有面板&quot;,
+p:&quot;匯出&quot;,m:&quot;立即匯出&quot;,cancel:&quot;取消&quot;}
+try{
+const e=angular.element,i=document.styleSheets[0],s=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+class o{constructor(){const o=e(document).injector()
+this.u=o.get(&quot;timeSrv&quot;)
+const n=this.u.dashboard
+s.forEach(t=&gt;i.insertRule(t,0)),this.g=e(&quot;&lt;span&gt;&quot;),this._=e(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this.v=e(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;this.$()),
+this.k=e(&quot;&lt;button&gt;&quot;).text(t.l).on(&quot;click&quot;,()=&gt;n.expandRows())
+const a=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
+this.P=e(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(e(&quot;&lt;p&gt;&quot;).text(t.i).append(e(&quot;&lt;strong&gt;&quot;).text(n.title)),e(&quot;&lt;p&gt;&quot;).text(t.s).append(this.k),e(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this._,this.g),e(`&lt;p style=&quot;display:flex;${a}&quot;&gt;`).append(this.v,e(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;this.I()))),
+this.S=0,e(document.body).append(this.P),this.j=setInterval(()=&gt;this.T(),500)}T(){const i=e(&quot;.panel-loading&quot;),s=i.length
+if(0===this.S)this.g.text(`${t.o}: ${s}`),this.v.prop(&quot;disabled&quot;,0===s)
+else{const e=i.filter(&quot;.ng-hide&quot;).length,o=(100*e/s||0).toFixed(1)
+this.g.text(`${t.h}: ${o}% (${e}/${s})`),this._.prop({value:e,max:s}),s&gt;e?2!==this.S&amp;&amp;(this.S=2,
+this.v.prop(&quot;disabled&quot;,!1).text(t.m).one(&quot;click&quot;,()=&gt;this.U())):this.U()}}$(){const t=this.u.dashboard
+this.S=1,this.v.prop(&quot;disabled&quot;,!0),this.L=t.refresh,this.u.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
+t.snapshot={timestamp:new Date},t.startRefresh()}U(){
+const t=this.u.dashboard,i=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone()
+s.time=this.u.timeRange()
+const o={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i},dashboard:s}
+this.I()
+const n=new Blob([JSON.stringify(o)],{type:&quot;application/json&quot;}),a=URL.createObjectURL(n),h=e(&quot;&lt;a&gt;&quot;)
+h.prop({href:a,download:`${s.title}_${i}.json`}),e(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(a),h.remove()},0)}I(){const t=this.u.dashboard
+delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
+this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remove(),s.forEach(()=&gt;i.deleteRule(0))}}new o
+}catch(e){console.error(e),alert(t.t)}</textarea>
                 </p>
             </li>
             <li>
@@ -454,21 +545,14 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
     $(document).ready(function() {
         var iframe = $('#script-iframe');
 
-        var xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-            iframe.replaceWith($('<textarea class="w-100" readonly rows="5" cols="100">').val(xhr.responseText));
-            $('#copy-script-text').hide();
-            $('#copy-script-button').show().click(function() {
-                $('#script-container > textarea').focus().select();
-                document.execCommand('copy');
-                var copiedNote = $('#copied-note').show();
-                setTimeout(function() {
-                    copiedNote.hide();
-                }, 1000);
-            });
-        };
-        xhr.open('GET', iframe.attr('src'));
-        xhr.send();
+        $('#copy-script-button').show().click(function() {
+            $('#script-container > textarea:visible').focus().select();
+            document.execCommand('copy');
+            var copiedNote = $('#copied-note').show();
+            setTimeout(function() {
+                copiedNote.hide();
+            }, 1000);
+        });
 
         $('.dropdown-toggle').on('focus blur', function(e) {
             var menu = $(this).siblings('.dropdown-menu');
