@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="docs/bootstrap.min.css" />
+<link rel="icon" href="docs/favicon.ico" />
 
-<title>Grafana Snapshot Export/Import Guide</title>
+<title>PingCAP MetricsTool</title>
 
 <style>
     ol > li {
@@ -42,39 +43,34 @@
     textarea[lang=en-US] {
         display: block;
     }
+
+    #title-screen, .bg-title-screen {
+        background: #e9ecef;
+    }
+    #title-screen a {
+        background: #fff;
+        color: #344;
+        display: block;
+        border-radius: 6px;
+        box-shadow: 0 1.5rem 1.5rem -1.25rem rgba(10,10,10,.05);
+        transition: box-shadow .2s linear, transform .2s linear;
+        height: 9rem;
+    }
+    #title-screen a:hover {
+        text-decoration: none;
+        transform: translateY(-.1rem);
+        box-shadow: 0 2rem 2rem -1.25rem rgba(10,10,10,.1);
+    }
 </style>
 
 </head>
 <body>
-<nav class="navbar navbar-expand navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand navbar-light bg-title-screen fixed-top">
     <div class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#backup-with-dev-tools">
-                    <span lang="en-US">Export</span>
-                    <span lang="zh-CN">导出</span>
-                    <span lang="zh-TW">匯出</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#viz">
-                    <span lang="en-US">Visualize</span>
-                    <span lang="zh-CN">检视</span>
-                    <span lang="zh-TW">檢視</span>
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void 0">
-                    <span lang="en-US">Import</span>
-                    <span lang="zh-CN">导入</span>
-                    <span lang="zh-TW">匯入</span>
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#restore-with-curl">cURL / Wget</a>
-                    <a class="dropdown-item" href="#restore-with-cli">grafsnap</a>
-                </div>
-            </li>
-        </ul>
+        <a class="navbar-brand mr-auto" href="#">
+            <img src="docs/icon.svg" width="24" height="24" alt="icon" />
+            PingCAP MetricsTool
+        </a>
         <form class="form-inline">
             <select class="form-control" id="lang-selector" disabled>
                 <option value="en-US" selected>English</option>
@@ -86,69 +82,45 @@
 </nav>
 
 <main>
-    <div class="container vh-100 d-flex align-items-center py-5">
-        <div class="card-deck">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <span lang="en-US">Export</span>
-                        <span lang="zh-CN">导出</span>
-                        <span lang="zh-TW">匯出</span>
-                    </h5>
-                    <ul class="card-text">
-                        <li><a href="#backup-with-dev-tools">
-                            <span lang="en-US">Export from Grafana Dashboard UI</span>
-                            <span lang="zh-CN">在 Grafana 监控界面上导出快照</span>
-                            <span lang="zh-TW">在 Grafana 儀表板介面上匯出快照</span>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <span lang="en-US">Visualize</span>
-                        <span lang="zh-CN">检视</span>
-                        <span lang="zh-TW">檢視</span>
-                    </h5>
-                    <ul class="card-text">
-                        <li>
-                            <a href="#viz">
-                                <span lang="en-US">Visualize Snapshot File</span>
-                                <span lang="zh-CN">在网页上检视快照文件</span>
-                                <span lang="zh-TW">在網頁上檢視快照檔案</span>
-                            </a>
-                            <a href="https://metricstool.pingcap.com/viz/" target="_blank">↗</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <span lang="en-US">Import</span>
-                        <span lang="zh-CN">导入</span>
-                        <span lang="zh-TW">匯入</span>
-                    </h5>
-                    <p class="card-text">
-                        <span lang="en-US">There are multiple ways to import snapshot files back into Grafana</span>
-                        <span lang="zh-CN">以下列出多种方法可以导入先前导出的 Grafana 监控快照</span>
-                        <span lang="zh-TW">以下列出多種方法可以匯入之前匯出的 Grafana 儀表板快照</span>
-                    </p>
-                    <ul class="card-text">
-                        <li><a href="#restore-with-curl">
-                            <span lang="en-US">Using cURL or Wget</span>
-                            <span lang="zh-CN">使用 cURL 或 Wget</span>
-                            <span lang="zh-TW">使用 cURL 或 Wget</span>
-                        </a></li>
-                        <li><a href="#restore-with-cli">
-                            <span lang="en-US">Using CLI tool “grafsnap”</span>
-                            <span lang="zh-CN">使用 grafsnap 命令行工具</span>
-                            <span lang="zh-TW">使用 grafsnap 命令列程式</span>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
+    <div class="container-fluid">
+        <div id="title-screen" class="row vh-100 align-items-center justify-content-center">
+            <a class="col-sm-11 col-md-3 mx-3 p-4" href="#backup-with-dev-tools">
+                <h4>
+                    <span lang="en-US">Export</span>
+                    <span lang="zh-CN">导出</span>
+                    <span lang="zh-TW">匯出</span>
+                </h4>
+                <p class="text-muted">
+                    <span lang="en-US">Export Grafana data as snapshot</span>
+                    <span lang="zh-CN">导出 Grafana 监控数据为快照</span>
+                    <span lang="zh-TW">匯出 Grafana 儀表板資料為快照</span>
+                </p>
+            </a>
+            <a class="col-sm-11 col-md-3 mx-3 p-4" href="./viz" target="_blank">
+                <h4>
+                    <span lang="en-US">View</span>
+                    <span lang="zh-CN">查看</span>
+                    <span lang="zh-TW">檢視</span>
+                </h4>
+                <p class="text-muted">
+                    <span lang="en-US">View Grafana snapshot online</span>
+                    <span lang="zh-CN">在线查看 Grafana 快照</span>
+                    <span lang="zh-TW">線上檢視 Grafana 快照</span>
+                    🡵
+                </p>
+            </a>
+            <a class="col-sm-11 col-md-3 mx-3 p-4" href="#restore-with-curl">
+                <h4>
+                    <span lang="en-US">Import</span>
+                    <span lang="zh-CN">导入</span>
+                    <span lang="zh-TW">匯入</span>
+                </h4>
+                <p class="text-muted">
+                    <span lang="en-US">Import snapshot into local Grafana</span>
+                    <span lang="zh-CN">将快照导入到本地 Grafana</span>
+                    <span lang="zh-TW">將快照匯入到本地 Grafana</span>
+                </p>
+            </a>
         </div>
     </div>
 
@@ -178,7 +150,7 @@
                     </em>
                 </p>
                 <p class="w-100" id="script-container">
-                    <textarea lang="en-US" class="w-100" readonly rows="5" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+                    <textarea lang="en-US" class="w-100" readonly rows="3" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
 &quot;use strict&quot;
 const t={t:&quot;Script failed to run. Please ensure it is running on the Grafana v6.x.x dashboard page.&quot;,
 s:&quot;Going to export snapshot of the current dashboard: &quot;,i:&quot;Note: Only metrics from visible panels can be exported&quot;,
@@ -210,7 +182,7 @@ URL.revokeObjectURL(a),r.remove()},0)}S(){const t=this.u.dashboard
 delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
 this.O&amp;&amp;this.u.setAutoRefresh(this.O),clearInterval(this.j),this.k.remove(),i.forEach(()=&gt;s.deleteRule(0))}}new o
 }catch(e){console.error(e),alert(t.t)}</textarea>
-                    <textarea lang="zh-CN" class="w-100" readonly rows="5" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+                    <textarea lang="zh-CN" class="w-100" readonly rows="3" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
 &quot;use strict&quot;
 const t={t:&quot;执行失败。请确保是在 Grafana v6.x.x 的监控网页上执行脚本。&quot;,i:&quot;将导出当前的监控页面：&quot;,s:&quot;注意：只有已展开面板内的监控会被导出&quot;,o:&quot;面板数量&quot;,h:&quot;加载面板中&quot;,l:&quot;展开所有面板&quot;,
 p:&quot;导出&quot;,m:&quot;立刻导出&quot;,cancel:&quot;取消&quot;}
@@ -241,7 +213,7 @@ URL.revokeObjectURL(a),h.remove()},0)}I(){const t=this.u.dashboard
 delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
 this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remove(),s.forEach(()=&gt;i.deleteRule(0))}}new o
 }catch(e){console.error(e),alert(t.t)}</textarea>
-                    <textarea lang="zh-TW" class="w-100" readonly rows="5" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+                    <textarea lang="zh-TW" class="w-100" readonly rows="3" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
 &quot;use strict&quot;
 const t={t:&quot;執行失敗。請確保是在 Grafana v6.x.x 的儀表板上執行劇本。&quot;,i:&quot;即將匯出當前儀表板：&quot;,s:&quot;注意：只能匯出已展開的面板內的資料&quot;,o:&quot;面板數量&quot;,h:&quot;載入面板中&quot;,l:&quot;展開所有面板&quot;,
 p:&quot;匯出&quot;,m:&quot;立即匯出&quot;,cancel:&quot;取消&quot;}
@@ -278,13 +250,13 @@ this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remov
                 <p lang="en-US">After opening a Grafana Dashboard, press <kbd>F12</kbd> the launch the Developer Tool, and then paste the script in the “Console” tab.</p>
                 <p lang="zh-CN">在 Grafana 监控面板中按下 <kbd>F12</kbd> 启动开发者工具，在 “Console” 面板下粘贴脚本。</p>
                 <p lang="zh-TW">在 Grafana 儀表板中按下 <kbd>F12</kbd> 啟動開發者工具，在「Console」頁下貼上指令碼。</p>
-                <p><img src="docs/dev-tools-5.png" class="img-fluid" alt="Pasting the script into the Developer Tool Console"></p>
+                <p><img src="docs/dev-tools-5.png" class="img-fluid" width="420" height="210" alt="Pasting the script into the Developer Tool Console"></p>
             </li>
             <li>
                 <p lang="en-US">Press <kbd>Enter</kbd> to execute the script. A dialog should now appear on the web page. Follow its instruction to continue.</p>
                 <p lang="zh-CN">按下 <kbd>回车 (Enter)</kbd> 执行脚本。此时 Grafana 网页中会出现操作提示框，请遵循其指示进行后续操作。</p>
                 <p lang="zh-TW">按下 <kbd>輸入 (Enter)</kbd> 運行指令碼。此時 Grafana 網面中會出現操作提示框，請遵循其指示繼續操作。</p>
-                <p><img src="docs/dev-tools-6.png" class="img-fluid" alt="The dialog in the Dashboard"></p>
+                <p><img src="docs/dev-tools-6.png" class="img-fluid" width="337" height="135" alt="The dialog in the Dashboard"></p>
             </li>
         </ol>
         <p><a href="#">↑
@@ -341,6 +313,7 @@ this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remov
         <p><a href="#top">↑ 返回</a></p>
     </div>-->
 
+    <!--
     <hr>
 
     <div class="p-5" id="viz">
@@ -378,6 +351,7 @@ this.L&amp;&amp;this.u.setAutoRefresh(this.L),clearInterval(this.j),this.P.remov
             <span lang="zh-TW">返回</span>
         </a></p>
     </div>
+    -->
 
     <hr>
 
@@ -563,12 +537,6 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
             }
         });
 
-        var localizedTitles = {
-            'en-US': 'Grafana Snapshot Export/Import Guide',
-            'zh-CN': 'Grafana Snapshot 导出导入指南',
-            'zh-TW': 'Grafana Snapshot 匯出匯入指南',
-        };
-
         $('#lang-selector').prop('disabled', false).change(function() {
             var rules = document.styleSheets[1].cssRules;
             for (var i = 0; i < rules.length; i++) {
@@ -578,7 +546,6 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
                     rule.selectorText = st.replace(/\[lang=[^\]]+\]/, '[lang='+this.value+']');
                 }
             }
-            document.title = localizedTitles[this.value];
         }).change();
 
         $('#import-buttons > button').click(function() {
