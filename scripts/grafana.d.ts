@@ -17,8 +17,8 @@ declare interface Annotations {
 declare class DashboardModel {
     readonly refresh?: string
     title: string
-    id: number
-    uid: string
+    id: number | null
+    uid: string | null
     readonly annotations: Annotations
     time: TimeRange
     snapshot?: Snapshot

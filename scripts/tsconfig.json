@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
+    "target": "ES5",
     "module": "none",
     "lib": [
       "DOM",
-      "ES2015",
+      "ES5",
+      "ES2015.Promise",
     ],
     "strict": true,
     "allowJs": false,

@@ -110,11 +110,11 @@ try {
             // for the second click, take the dashboard snapshot.
             const timestamp = dashboard.snapshot!.timestamp.toISOString();
             const clone = dashboard.getSaveModelClone();
-            const title = clone.title;
-            clone.time = this.timeSrv.timeRange();
-            clone.id = 0;
-            clone.uid = '';
-            clone.title = `${title} (exported at ${timestamp})`;
+            const title = clone['title'];
+            clone['time'] = this.timeSrv.timeRange();
+            clone['id'] = null;
+            clone['uid'] = null;
+            clone['title'] = `${title} (exported at ${timestamp})`;
 
             const snapshot = {
                 'meta': {
@@ -124,6 +124,7 @@ try {
                     'created': timestamp,
                 },
                 'dashboard': clone,
+                'overwrite': true,
             };
             this.closeUI(); // cleanup immediately.
 
