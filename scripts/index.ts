@@ -66,7 +66,7 @@ try {
         }
 
         updateProgress(): void {
-            const spinners = $('.panel-loading') as JQLiteWithFilter;
+            const spinners = $('.panel-header');
             const total = spinners.length;
 
             // enable the export button if we are waiting too long; or immediately export if everything is loaded.
@@ -74,7 +74,7 @@ try {
                 this.loadProgressText.text(`${L.numberOfPanels}: ${total}`)
                 this.exportButton.prop('disabled', total === 0);
             } else {
-                const ready = spinners.filter('.ng-hide').length;
+                const ready = total - spinners.find('.panel-loading:visible').length;
                 const percent = (100 * ready / total || 0).toFixed(1);
                 this.loadProgressText.text(`${L.loadingPanels}: ${percent}% (${ready}/${total})`);
                 this.loadProgress.prop({'value': ready, 'max': total});
