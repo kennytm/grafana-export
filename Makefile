@@ -52,6 +52,7 @@ website-structure:
 	mkdir -p website/docs website/viz/public/build website/viz/public/fonts
 
 website: \
+		website-structure \
 		download-assets \
 		website/viz/index.html \
 		$(patsubst %,website/%,$(wildcard \
@@ -65,6 +66,9 @@ website: \
 			viz/public/build/*.css \
 			viz/public/fonts/*.woff \
 		)) \
+
+clean-website:
+	rm -rf website/
 
 # Upload website to S3.
 #
@@ -96,5 +100,5 @@ upload: website
 		website/ \
 		$(TARGET)
 
-.PHONY: all download-assets website upload
+.PHONY: all download-assets website website-structure clean-website upload
 
