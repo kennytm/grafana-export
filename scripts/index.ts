@@ -66,7 +66,7 @@ try {
         }
 
         updateProgress(): void {
-            const spinners = $('.panel-header');
+            const spinners = $('.panel-container');
             const total = spinners.length;
 
             // enable the export button if we are waiting too long; or immediately export if everything is loaded.
