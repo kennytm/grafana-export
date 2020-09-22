@@ -1,0 +1,3 @@
+[submodule "viz"]
+	path = viz
+	url = https://github.com/kennytm/grafana.git
