@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="docs/bootstrap.min.css" />
+<link rel="icon" href="docs/favicon.ico" />
 
-<title>Grafana Snapshot Export/Import Guide</title>
+<title>PingCAP MetricsTool</title>
 
 <style>
     ol > li {
@@ -39,39 +40,37 @@
     span[lang=en-US] {
         display: inline;
     }
+    textarea[lang=en-US] {
+        display: block;
+    }
+
+    #title-screen, .bg-title-screen {
+        background: #e9ecef;
+    }
+    #title-screen a {
+        background: #fff;
+        color: #344;
+        display: block;
+        border-radius: 6px;
+        box-shadow: 0 1.5rem 1.5rem -1.25rem rgba(10,10,10,.05);
+        transition: box-shadow .2s linear, transform .2s linear;
+        height: 9rem;
+    }
+    #title-screen a:hover {
+        text-decoration: none;
+        transform: translateY(-.1rem);
+        box-shadow: 0 2rem 2rem -1.25rem rgba(10,10,10,.1);
+    }
 </style>
 
 </head>
 <body>
-<nav class="navbar navbar-expand navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand navbar-light bg-title-screen fixed-top">
     <div class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#backup-with-dev-tools">
-                    <span lang="en-US">Export</span>
-                    <span lang="zh-CN">导出</span>
-                    <span lang="zh-TW">匯出</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#viz">
-                    <span lang="en-US">Visualize</span>
-                    <span lang="zh-CN">检视</span>
-                    <span lang="zh-TW">檢視</span>
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void 0">
-                    <span lang="en-US">Import</span>
-                    <span lang="zh-CN">导入</span>
-                    <span lang="zh-TW">匯入</span>
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#restore-with-curl">cURL / Wget</a>
-                    <a class="dropdown-item" href="#restore-with-cli">grafsnap</a>
-                </div>
-            </li>
-        </ul>
+        <a class="navbar-brand mr-auto" href="#">
+            <img src="docs/icon.svg" width="24" height="24" alt="icon" />
+            PingCAP MetricsTool
+        </a>
         <form class="form-inline">
             <select class="form-control" id="lang-selector" disabled>
                 <option value="en-US" selected>English</option>
@@ -83,69 +82,45 @@
 </nav>
 
 <main>
-    <div class="container vh-100 d-flex align-items-center py-5">
-        <div class="card-deck">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <span lang="en-US">Export</span>
-                        <span lang="zh-CN">导出</span>
-                        <span lang="zh-TW">匯出</span>
-                    </h5>
-                    <ul class="card-text">
-                        <li><a href="#backup-with-dev-tools">
-                            <span lang="en-US">Export from Grafana Dashboard UI</span>
-                            <span lang="zh-CN">在 Grafana 监控界面上导出快照</span>
-                            <span lang="zh-TW">在 Grafana 儀表板介面上匯出快照</span>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <span lang="en-US">Visualize</span>
-                        <span lang="zh-CN">检视</span>
-                        <span lang="zh-TW">檢視</span>
-                    </h5>
-                    <ul class="card-text">
-                        <li>
-                            <a href="#viz">
-                                <span lang="en-US">Visualize Snapshot File</span>
-                                <span lang="zh-CN">在网页上检视快照文件</span>
-                                <span lang="zh-TW">在網頁上檢視快照檔案</span>
-                            </a>
-                            <a href="https://metricstool.pingcap.com/viz/" target="_blank">↗</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <span lang="en-US">Import</span>
-                        <span lang="zh-CN">导入</span>
-                        <span lang="zh-TW">匯入</span>
-                    </h5>
-                    <p class="card-text">
-                        <span lang="en-US">There are multiple ways to import snapshot files back into Grafana</span>
-                        <span lang="zh-CN">以下列出多种方法可以导入先前导出的 Grafana 监控快照</span>
-                        <span lang="zh-TW">以下列出多種方法可以匯入之前匯出的 Grafana 儀表板快照</span>
-                    </p>
-                    <ul class="card-text">
-                        <li><a href="#restore-with-curl">
-                            <span lang="en-US">Using cURL or Wget</span>
-                            <span lang="zh-CN">使用 cURL 或 Wget</span>
-                            <span lang="zh-TW">使用 cURL 或 Wget</span>
-                        </a></li>
-                        <li><a href="#restore-with-cli">
-                            <span lang="en-US">Using CLI tool “grafsnap”</span>
-                            <span lang="zh-CN">使用 grafsnap 命令行工具</span>
-                            <span lang="zh-TW">使用 grafsnap 命令列程式</span>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
+    <div class="container-fluid">
+        <div id="title-screen" class="row vh-100 align-items-center justify-content-center">
+            <a class="col-sm-11 col-md-3 mx-3 p-4" href="#backup-with-dev-tools">
+                <h4>
+                    <span lang="en-US">Export</span>
+                    <span lang="zh-CN">导出</span>
+                    <span lang="zh-TW">匯出</span>
+                </h4>
+                <p class="text-muted">
+                    <span lang="en-US">Export Grafana data as snapshot</span>
+                    <span lang="zh-CN">导出 Grafana 监控数据为快照</span>
+                    <span lang="zh-TW">匯出 Grafana 儀表板資料為快照</span>
+                </p>
+            </a>
+            <a class="col-sm-11 col-md-3 mx-3 p-4" href="./viz/index.html" target="_blank">
+                <h4>
+                    <span lang="en-US">View</span>
+                    <span lang="zh-CN">查看</span>
+                    <span lang="zh-TW">檢視</span>
+                </h4>
+                <p class="text-muted">
+                    <span lang="en-US">View Grafana snapshot online</span>
+                    <span lang="zh-CN">在线查看 Grafana 快照</span>
+                    <span lang="zh-TW">線上檢視 Grafana 快照</span>
+                    🡵
+                </p>
+            </a>
+            <a class="col-sm-11 col-md-3 mx-3 p-4" href="#restore-with-curl">
+                <h4>
+                    <span lang="en-US">Import</span>
+                    <span lang="zh-CN">导入</span>
+                    <span lang="zh-TW">匯入</span>
+                </h4>
+                <p class="text-muted">
+                    <span lang="en-US">Import snapshot into local Grafana</span>
+                    <span lang="zh-CN">将快照导入到本地 Grafana</span>
+                    <span lang="zh-TW">將快照匯入到本地 Grafana</span>
+                </p>
+            </a>
         </div>
     </div>
 
@@ -163,12 +138,7 @@
         <ol>
             <li>
                 <p>
-                    <span id="copy-script-text">
-                        <span lang="en-US">Copy the entire script below</span>
-                        <span lang="zh-CN">复制以下脚本</span>
-                        <span lang="zh-TW">複製以下指令碼</span>
-                    </span>
-                    <button type="button" class="btn btn-outline-primary" id="copy-script-button" style="display:none;">
+                    <button type="button" class="btn btn-outline-primary" id="copy-script-button">
                         <span lang="en-US">Copy the script below</span>
                         <span lang="zh-CN">复制以下脚本</span>
                         <span lang="zh-TW">複製以下指令碼</span>
@@ -176,24 +146,120 @@
                     <em id="copied-note" style="display:none;">
                         <span lang="en-US">Copied!</span>
                         <span lang="zh-CN">已复制！</span>
-                        <span lang="zh-TW">已複制！</span>
+                        <span lang="zh-TW">已複製！</span>
                     </em>
                 </p>
                 <p class="w-100" id="script-container">
-                    <iframe src="scripts/dist/index.min.js" id="script-iframe" class="w-100"></iframe>
+                    <textarea lang="en-US" class="w-100" readonly rows="3" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+&quot;use strict&quot;
+var t={t:&quot;Script failed to run. Please ensure it is running on the Grafana v6.x.x dashboard page.&quot;,
+i:&quot;Going to export snapshot of the current dashboard: &quot;,s:&quot;Note: Only metrics from visible panels can be exported&quot;,
+o:&quot;Number of panels&quot;,l:&quot;Loading panels&quot;,h:&quot;Expand all rows&quot;,p:&quot;Export&quot;,u:&quot;Export immediately&quot;,cancel:&quot;Cancel&quot;}
+try{
+var e=angular.element,i=document.styleSheets[0],n=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+new(function(){function s(){var s=this,a=e(document).injector()
+this.m=a.get(&quot;timeSrv&quot;)
+var o=this.m.dashboard
+n.forEach(t=&gt;i.insertRule(t,0)),this.v=e(&quot;&lt;span&gt;&quot;),this.g=e(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this._=e(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;s.k()),
+this.P=e(&quot;&lt;button&gt;&quot;).text(t.h).on(&quot;click&quot;,()=&gt;o.expandRows())
+var r=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
+this.S=e(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(e(&quot;&lt;p&gt;&quot;).text(t.i).append(e(&quot;&lt;strong&gt;&quot;).text(o.title)),e(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),e(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this.g,this.v),e(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this._,e(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;s.j()))),
+this.I=0,e(document.body).append(this.S),this.L=setInterval(()=&gt;s.N(),500)}return s.prototype.N=function(){
+var i=this,n=e(&quot;.panel-container&quot;),s=n.length
+if(0===this.I)this.v.text(t.o+&quot;: &quot;+s),this._.prop(&quot;disabled&quot;,0===s)
+else{var a=s-n.find(&quot;.panel-loading:visible&quot;).length,o=(100*a/s||0).toFixed(1)
+this.v.text(t.l+&quot;: &quot;+o+&quot;% (&quot;+a+&quot;/&quot;+s+&quot;)&quot;),this.g.prop({value:a,max:s}),s&gt;a?2!==this.I&amp;&amp;(this.I=2,
+this._.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;i.O())):this.O()}},s.prototype.k=function(){var t=this.m.dashboard
+this.I=1,this._.prop(&quot;disabled&quot;,!0),this.T=t.refresh,this.m.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
+t.snapshot={timestamp:new Date},t.startRefresh()},s.prototype.O=function(){
+var t=this.m.dashboard,i=t.snapshot.timestamp.toISOString(),n=t.getSaveModelClone(),s=n.title
+n.time=this.m.timeRange(),n.id=null,n.uid=null,n.title=s+&quot; (exported at &quot;+i+&quot;)&quot;
+var a={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i},dashboard:n,overwrite:!0}
+this.j()
+var o=new Blob([JSON.stringify(a)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),l=e(&quot;&lt;a&gt;&quot;)
+l.prop({href:r,download:s+&quot;_&quot;+i+&quot;.json&quot;}),e(document.body).append(l),l[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(r),l.remove()},0)},s.prototype.j=function(){var t=this.m.dashboard
+delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
+this.T&amp;&amp;this.m.setAutoRefresh(this.T),clearInterval(this.L),this.S.remove(),n.forEach(()=&gt;i.deleteRule(0))},s}())
+}catch(e){console.error(e),alert(t.t)}</textarea>
+                    <textarea lang="zh-CN" class="w-100" readonly rows="3" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+&quot;use strict&quot;
+var t={t:&quot;执行失败。请确保是在 Grafana v6.x.x 的监控网页上执行脚本。&quot;,i:&quot;将导出当前的监控页面：&quot;,s:&quot;注意：只有已展开面板内的监控会被导出&quot;,o:&quot;面板数量&quot;,h:&quot;加载面板中&quot;,l:&quot;展开所有面板&quot;,
+p:&quot;导出&quot;,u:&quot;立刻导出&quot;,cancel:&quot;取消&quot;}
+try{
+var i=angular.element,e=document.styleSheets[0],s=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+new(function(){function n(){var n=this,a=i(document).injector()
+this.v=a.get(&quot;timeSrv&quot;)
+var o=this.v.dashboard
+s.forEach(t=&gt;e.insertRule(t,0)),this.m=i(&quot;&lt;span&gt;&quot;),this._=i(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this.g=i(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;n.k()),
+this.P=i(&quot;&lt;button&gt;&quot;).text(t.l).on(&quot;click&quot;,()=&gt;o.expandRows())
+var r=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
+this.S=i(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(i(&quot;&lt;p&gt;&quot;).text(t.i).append(i(&quot;&lt;strong&gt;&quot;).text(o.title)),i(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),i(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this._,this.m),i(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this.g,i(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;n.j()))),
+this.I=0,i(document.body).append(this.S),this.T=setInterval(()=&gt;n.L(),500)}return n.prototype.L=function(){
+var e=this,s=i(&quot;.panel-container&quot;),n=s.length
+if(0===this.I)this.m.text(t.o+&quot;: &quot;+n),this.g.prop(&quot;disabled&quot;,0===n)
+else{var a=n-s.find(&quot;.panel-loading:visible&quot;).length,o=(100*a/n||0).toFixed(1)
+this.m.text(t.h+&quot;: &quot;+o+&quot;% (&quot;+a+&quot;/&quot;+n+&quot;)&quot;),this._.prop({value:a,max:n}),n&gt;a?2!==this.I&amp;&amp;(this.I=2,
+this.g.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;e.O())):this.O()}},n.prototype.k=function(){var t=this.v.dashboard
+this.I=1,this.g.prop(&quot;disabled&quot;,!0),this.R=t.refresh,this.v.setAutoRefresh(),i(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
+t.snapshot={timestamp:new Date},t.startRefresh()},n.prototype.O=function(){
+var t=this.v.dashboard,e=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone(),n=s.title
+s.time=this.v.timeRange(),s.id=null,s.uid=null,s.title=n+&quot; (exported at &quot;+e+&quot;)&quot;
+var a={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:e},dashboard:s,overwrite:!0}
+this.j()
+var o=new Blob([JSON.stringify(a)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),h=i(&quot;&lt;a&gt;&quot;)
+h.prop({href:r,download:n+&quot;_&quot;+e+&quot;.json&quot;}),i(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(r),h.remove()},0)},n.prototype.j=function(){var t=this.v.dashboard
+delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
+this.R&amp;&amp;this.v.setAutoRefresh(this.R),clearInterval(this.T),this.S.remove(),s.forEach(()=&gt;e.deleteRule(0))},n}())
+}catch(i){console.error(i),alert(t.t)}</textarea>
+                    <textarea lang="zh-TW" class="w-100" readonly rows="3" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
+&quot;use strict&quot;
+var t={t:&quot;執行失敗。請確保是在 Grafana v6.x.x 的儀表板上執行劇本。&quot;,i:&quot;即將匯出當前儀表板：&quot;,s:&quot;注意：只能匯出已展開的面板內的資料&quot;,o:&quot;面板數量&quot;,h:&quot;載入面板中&quot;,l:&quot;展開所有面板&quot;,
+p:&quot;匯出&quot;,u:&quot;立即匯出&quot;,cancel:&quot;取消&quot;}
+try{
+var i=angular.element,e=document.styleSheets[0],s=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+new(function(){function n(){var n=this,a=i(document).injector()
+this.v=a.get(&quot;timeSrv&quot;)
+var o=this.v.dashboard
+s.forEach(t=&gt;e.insertRule(t,0)),this.m=i(&quot;&lt;span&gt;&quot;),this._=i(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this.g=i(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;n.k()),
+this.P=i(&quot;&lt;button&gt;&quot;).text(t.l).on(&quot;click&quot;,()=&gt;o.expandRows())
+var r=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
+this.S=i(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(i(&quot;&lt;p&gt;&quot;).text(t.i).append(i(&quot;&lt;strong&gt;&quot;).text(o.title)),i(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),i(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this._,this.m),i(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this.g,i(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;n.j()))),
+this.I=0,i(document.body).append(this.S),this.T=setInterval(()=&gt;n.L(),500)}return n.prototype.L=function(){
+var e=this,s=i(&quot;.panel-container&quot;),n=s.length
+if(0===this.I)this.m.text(t.o+&quot;: &quot;+n),this.g.prop(&quot;disabled&quot;,0===n)
+else{var a=n-s.find(&quot;.panel-loading:visible&quot;).length,o=(100*a/n||0).toFixed(1)
+this.m.text(t.h+&quot;: &quot;+o+&quot;% (&quot;+a+&quot;/&quot;+n+&quot;)&quot;),this._.prop({value:a,max:n}),n&gt;a?2!==this.I&amp;&amp;(this.I=2,
+this.g.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;e.O())):this.O()}},n.prototype.k=function(){var t=this.v.dashboard
+this.I=1,this.g.prop(&quot;disabled&quot;,!0),this.R=t.refresh,this.v.setAutoRefresh(),i(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
+t.snapshot={timestamp:new Date},t.startRefresh()},n.prototype.O=function(){
+var t=this.v.dashboard,e=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone(),n=s.title
+s.time=this.v.timeRange(),s.id=null,s.uid=null,s.title=n+&quot; (exported at &quot;+e+&quot;)&quot;
+var a={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:e},dashboard:s,overwrite:!0}
+this.j()
+var o=new Blob([JSON.stringify(a)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),h=i(&quot;&lt;a&gt;&quot;)
+h.prop({href:r,download:n+&quot;_&quot;+e+&quot;.json&quot;}),i(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(r),h.remove()},0)},n.prototype.j=function(){var t=this.v.dashboard
+delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
+this.R&amp;&amp;this.v.setAutoRefresh(this.R),clearInterval(this.T),this.S.remove(),s.forEach(()=&gt;e.deleteRule(0))},n}())
+}catch(i){console.error(i),alert(t.t)}</textarea>
                 </p>
             </li>
             <li>
                 <p lang="en-US">After opening a Grafana Dashboard, press <kbd>F12</kbd> the launch the Developer Tool, and then paste the script in the “Console” tab.</p>
                 <p lang="zh-CN">在 Grafana 监控面板中按下 <kbd>F12</kbd> 启动开发者工具，在 “Console” 面板下粘贴脚本。</p>
                 <p lang="zh-TW">在 Grafana 儀表板中按下 <kbd>F12</kbd> 啟動開發者工具，在「Console」頁下貼上指令碼。</p>
-                <p><img src="docs/dev-tools-5.png" class="img-fluid" alt="Pasting the script into the Developer Tool Console"></p>
+                <p><img src="docs/dev-tools-5.png" class="img-fluid" width="420" height="210" alt="Pasting the script into the Developer Tool Console"></p>
             </li>
             <li>
                 <p lang="en-US">Press <kbd>Enter</kbd> to execute the script. A dialog should now appear on the web page. Follow its instruction to continue.</p>
                 <p lang="zh-CN">按下 <kbd>回车 (Enter)</kbd> 执行脚本。此时 Grafana 网页中会出现操作提示框，请遵循其指示进行后续操作。</p>
                 <p lang="zh-TW">按下 <kbd>輸入 (Enter)</kbd> 運行指令碼。此時 Grafana 網面中會出現操作提示框，請遵循其指示繼續操作。</p>
-                <p><img src="docs/dev-tools-6.png" class="img-fluid" alt="The dialog in the Dashboard"></p>
+                <p><img src="docs/dev-tools-6.png" class="img-fluid" width="337" height="135" alt="The dialog in the Dashboard"></p>
             </li>
         </ol>
         <p><a href="#">↑
@@ -250,6 +316,7 @@
         <p><a href="#top">↑ 返回</a></p>
     </div>-->
 
+    <!--
     <hr>
 
     <div class="p-5" id="viz">
@@ -287,6 +354,7 @@
             <span lang="zh-TW">返回</span>
         </a></p>
     </div>
+    -->
 
     <hr>
 
@@ -315,8 +383,8 @@
                 <p lang="en-US">Execute import command:</p>
                 <p lang="zh-CN">执行导入：</p>
                 <p lang="zh-TW">運行匯入指令：</p>
-                <pre class="import-script" id="curl-script"><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --data-binary @<mark>/root/snap1.json</mark></code></pre>
-                <pre class="import-script" id="wget-script" style="display:none;"><code>wget -qO- --header 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/snapshots' --post-file <mark>/root/snap1.json</mark></code></pre>
+                <pre class="import-script" id="curl-script"><code>curl -H 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/dashboards/import' --data-binary @<mark>/root/snap1.json</mark></code></pre>
+                <pre class="import-script" id="wget-script" style="display:none;"><code>wget -qO- --header 'Content-Type: application/json' '<mark>http://admin:admin@localhost:3000</mark>/api/dashboards/import' --post-file <mark>/root/snap1.json</mark></code></pre>
                 <p>
                     <span lang="en-US">in which:</span>
                     <span lang="zh-CN">其中参数是：</span>
@@ -338,13 +406,15 @@
                 </dl>
             </li>
             <li>
-                <p lang="en-US">Output like this is shown after finishing. Open the URL at the end to view the imported snapshot.</p>
-                <p lang="zh-CN">完成后会打印类似这样的反馈，打开最后列出的 URL 即可检视快照。</p>
-                <p lang="zh-TW">完成後會輸出類似這樣的結果，開啟最後列出的 URL 即可檢視快照。</p>
-                <pre><code>{"deleteKey":"8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
- "deleteUrl":"http://localhost:3000/api/snapshots-delete/8LvAhyp4oYgh2lxivj6b2Z1APDMS2azi",
- "key":"icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN",
- "url":"<mark>http://localhost:3000/dashboard/snapshot/icoOxTDyQx4j6XLc4TCwZTiTBbma6AAN</mark>"}</code></pre>
+                <p lang="en-US">Output like this is shown after finishing. Open the marked URL to view the imported snapshot.</p>
+                <p lang="zh-CN">完成后会打印类似这样的反馈，打开标示出的 URL 即可检视快照。</p>
+                <p lang="zh-TW">完成後會輸出類似這樣的結果，開啟標示出的 URL 即可檢視快照。</p>
+                <pre><code>{"pluginId":"",
+ "title":"New Dashboard (exported at 2020-01-01T12:00:00.000Z)","imported":true,
+ "importedUri":"db/new-dashboard-exported-at-2020-01-01t12-00-00-000z",
+ "importedUrl":"<mark>/d/Q6RuHYIWk/new-dashboard-exported-at-2020-01-01t12-00-00-000z</mark>",
+ "slug":"new-dashboard-exported-at-2020-01-01t12-00-00-000z",
+ …}</code></pre>
             </li>
         </ol>
         <p><a href="#">↑
@@ -454,21 +524,14 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
     $(document).ready(function() {
         var iframe = $('#script-iframe');
 
-        var xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-            iframe.replaceWith($('<textarea class="w-100" readonly rows="5" cols="100">').val(xhr.responseText));
-            $('#copy-script-text').hide();
-            $('#copy-script-button').show().click(function() {
-                $('#script-container > textarea').focus().select();
-                document.execCommand('copy');
-                var copiedNote = $('#copied-note').show();
-                setTimeout(function() {
-                    copiedNote.hide();
-                }, 1000);
-            });
-        };
-        xhr.open('GET', iframe.attr('src'));
-        xhr.send();
+        $('#copy-script-button').show().click(function() {
+            $('#script-container > textarea:visible').focus().select();
+            document.execCommand('copy');
+            var copiedNote = $('#copied-note').show();
+            setTimeout(function() {
+                copiedNote.hide();
+            }, 1000);
+        });
 
         $('.dropdown-toggle').on('focus blur', function(e) {
             var menu = $(this).siblings('.dropdown-menu');
@@ -479,12 +542,6 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
             }
         });
 
-        var localizedTitles = {
-            'en-US': 'Grafana Snapshot Export/Import Guide',
-            'zh-CN': 'Grafana Snapshot 导出导入指南',
-            'zh-TW': 'Grafana Snapshot 匯出匯入指南',
-        };
-
         $('#lang-selector').prop('disabled', false).change(function() {
             var rules = document.styleSheets[1].cssRules;
             for (var i = 0; i < rules.length; i++) {
@@ -494,7 +551,6 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
                     rule.selectorText = st.replace(/\[lang=[^\]]+\]/, '[lang='+this.value+']');
                 }
             }
-            document.title = localizedTitles[this.value];
         }).change();
 
         $('#import-buttons > button').click(function() {

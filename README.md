@@ -1,15 +1,19 @@
-## Export dashboards as snapshot JSON files
+# PingCAP MetricsTool
 
-We provide 3 methods to export dashboard as JSON files.
+This repository hosts the source code of the website https://metricstool.pingcap.com/, as well as the CLI tool `grafsnap`.
 
-* CLI
-* [Browser's Development tools](scripts/README.md)
-* [Manually](docs/manual-export.md)
+## Deploying the website
 
-## Visualize snapshot JSON files
+You need to first install NodeJS, Yarn 1 and GNU make. The website are pre-compressed, so you need to upload to an S3 server to view it.
 
-We provide 2 methods to visualize the exported JSON files.
+```sh
+# make sure the Grafana snapshot visualizer is ready.
+git submodule update --init
 
-* Web service
-* [CLI](cmd/grafsnap/README.md#usage-import-snapshot-json-files-into-grafana) to import into local Grafana instance
+# run `make website` **twice** to build it
+make website
+make website
 
+# deploy the website on S3
+make upload AWS_PROFILE=minio AWS_ENDPOINT_URL='http://127.0.0.1:9000' TARGET='s3://test-website/'
+```

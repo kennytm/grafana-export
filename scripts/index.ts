@@ -66,7 +66,7 @@ try {
         }
 
         updateProgress(): void {
-            const spinners = $('.panel-loading') as JQLiteWithFilter;
+            const spinners = $('.panel-container');
             const total = spinners.length;
 
             // enable the export button if we are waiting too long; or immediately export if everything is loaded.
@@ -74,7 +74,7 @@ try {
                 this.loadProgressText.text(`${L.numberOfPanels}: ${total}`)
                 this.exportButton.prop('disabled', total === 0);
             } else {
-                const ready = spinners.filter('.ng-hide').length;
+                const ready = total - spinners.find('.panel-loading:visible').length;
                 const percent = (100 * ready / total || 0).toFixed(1);
                 this.loadProgressText.text(`${L.loadingPanels}: ${percent}% (${ready}/${total})`);
                 this.loadProgress.prop({'value': ready, 'max': total});
@@ -110,7 +110,12 @@ try {
             // for the second click, take the dashboard snapshot.
             const timestamp = dashboard.snapshot!.timestamp.toISOString();
             const clone = dashboard.getSaveModelClone();
-            clone.time = this.timeSrv.timeRange();
+            const title = clone['title'];
+            clone['time'] = this.timeSrv.timeRange();
+            clone['id'] = null;
+            clone['uid'] = null;
+            clone['title'] = `${title} (exported at ${timestamp})`;
+
             const snapshot = {
                 'meta': {
                     'isSnapshot': true,
@@ -119,6 +124,7 @@ try {
                     'created': timestamp,
                 },
                 'dashboard': clone,
+                'overwrite': true,
             };
             this.closeUI(); // cleanup immediately.
 
@@ -126,7 +132,7 @@ try {
             const blob = new Blob([JSON.stringify(snapshot)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
             const a = $('<a>');
-            a.prop({'href': url, 'download': `${clone.title}_${timestamp}.json`});
+            a.prop({'href': url, 'download': `${title}_${timestamp}.json`});
             $(document.body).append(a);
             a[0].click();
             setTimeout(() => {
