@@ -132,9 +132,9 @@
             <span lang="zh-CN">在 Grafana 界面上导出</span>
             <span lang="zh-TW">從 Grafana 介面上匯出</span>
         </h1>
-        <p lang="en-US">Supported on Chrome, Edge and Firefox browsers</p>
-        <p lang="zh-CN">适用于 Chrome / Edge / Firefox 浏览器</p>
-        <p lang="zh-TW">適用於 Chrome / Edge / Firefox 瀏覽器</p>
+        <p lang="en-US">Supported on Chrome, Edge and Firefox browsers, requires Grafana v6.0+</p>
+        <p lang="zh-CN">适用于 Chrome / Edge / Firefox 浏览器，要求 Grafana v6.0 或以上</p>
+        <p lang="zh-TW">適用於 Chrome / Edge / Firefox 瀏覽器，要求 Grafana v6.0 或以上</p>
         <ol>
             <li>
                 <p>
@@ -266,55 +266,64 @@ this.R&amp;&amp;this.v.setAutoRefresh(this.R),clearInterval(this.T),this.S.remov
             <span lang="en-US">Return</span>
             <span lang="zh-CN">返回</span>
             <span lang="zh-TW">返回</span>
+        </a> &nbsp; // &nbsp; <a href="#backup-with-manual">↓
+            <span lang="en-US">Extract Local Snapshot</span>
+            <span lang="zh-CN">手动取出本地快照</span>
+            <span lang="zh-TW">手動取出本地快照</span>
         </a></p>
     </div>
 
-    <!--<hr>
+    <hr>
 
-    <div id="backup-with-manual" class="p-5">
-        <h1>手动取出本地快照</h1>
-
-        <p>如果不懂或不能使用浏览器的<abbr title="Development tools">开发工具</abbr>，可尝试这个方法。</p>
-
+    <div class="p-5" id="backup-with-manual">
+        <h1>
+            <span lang="en-US">Extract Local Snapshot</span>
+            <span lang="zh-CN">手动取出本地快照</span>
+            <span lang="zh-TW">手動取出本地快照</span>
+        </h1>
+        <p lang="en-US">Suitable when the browser or Grafana version is too old</p>
+        <p lang="zh-CN">浏览器或 Grafana 版本太低时适用</p>
+        <p lang="zh-TW">瀏覽器或 Grafana 版本太低時適用</p>
         <ol>
             <li>
-                <p>使用浏览器登入至 Grafana。</p>
+                <p lang="en-US">After opening a Grafana Dashboard, expand rows which need to exported, or press <kbd>d</kbd> then <kbd>Shift</kbd>+<kbd>E</kbd> to expand all rows (only visible panels are exported).</p>
+                <p lang="zh-CN">在 Grafana 监控中展开需要汇出的面板，或按 <kbd>d</kbd> 然后 <kbd>Shift</kbd>+<kbd>E</kbd> 展开所有面板（只有显示的面板才会被保存）。</p>
+                <p lang="zh-TW">在 Grafana 儀表板中展開需要匯出的面板，或按 <kbd>d</kbd> 然後 <kbd>Shift</kbd>+<kbd>E</kbd> 展開所有面板（只有顯示的面板才會被儲存）。</p>
             </li>
             <li>
-                <p>打开要导出的<abbr title="Dashboard">监控面板</abbr>。</p>
+                <p lang="en-US">Click the “Share dashboard” button in the toolbar, then “Snapshot”, and finally “Local snapshot”.</p>
+                <p lang="zh-CN">点击工具列中的 “Share dashboard” 按钮，然后选 “Snapshot”，最后点 “Local snapshot” 按钮。</p>
+                <p lang="zh-TW">點一下工具欄中的「Share dashboard」按鈕，然後選「Snapshot」，最後點一下「Local snapshot」按鈕。</p>
+                <p><img src="docs/manual-1.png" class="img-fluid" width="398" height="119" alt="“Share dashboard” button"></p>
             </li>
             <li>
-                <p>手动展开所有面板（只有显示的面板才会被保存）。</p>
+                <label for="manual-url-field">
+                    <span lang="en-US">Paste the snapshot link here:</span>
+                    <span lang="zh-CN">完成后把刚出现的快取连接贴到这里：</span>
+                    <span lang="zh-TW">完成後把剛出現的快取連結貼到這裡：</span>
+                </label>
+                <input id="manual-url-field" type="url" size="80" placeholder="http://localhost:3000/dashboard/snapshot/sNaPsHoTIdEnTiFiEr">
             </li>
             <li>
-                <p>点击右上角工具列中的 “Share dashboard” 按钮。</p>
-                <p><img src="docs/manual-1.png" class="img-fluid" alt="“Share dashboard” 按钮"></p>
-            </li>
-            <li>
-                <p>选择 “Snapshot” 页，然后点击 “Local snapshot”。</p>
-                <p><img src="docs/manual-4.png" class="img-fluid" alt="“Local snapshot” 按钮"></p>
-            </li>
-            <li>
-                <p>等待快取完成，完成后会出现一个连接。</p>
-                <p><img src="docs/manual-2.png" class="img-fluid" alt="“Local snapshot” 的连接"></p>
-            </li>
-            <li>
-                <p>复制连接，把当中的 <code>dashboard/snapshot</code> 部分取代为 <code>api/snapshots</code>，然后打开这个新连接。</p>
-                <p>
-                    <img src="docs/manual-3a.png" class="img-fluid" alt="localhost:3000/dashboard/snapshot/..."><br>
-                    ↓<br>
-                    <img src="docs/manual-3b.png" class="img-fluid" alt="localhost:3000/api/snapshots/...">
-                </p>
-            </li>
-            <li>
-                <p>储存当前页面为一个 JSON 文件（<kbd>Ctrl</kbd>+<kbd>S</kbd>）。</p>
-            </li>
-            <li>
-                <p>从第 2 步开始继续导出其他监控面板。</p>
+                <span lang="en-US">Right click and save this link:</span>
+                <span lang="zh-CN">右键保存这个连接：</span>
+                <span lang="zh-TW">右鍵儲存這個連結：</span>
+                <a id="manual-url-link"></a>
+                <em id="manual-url-invalid">
+                    💡
+                    <span lang="en-US">Paste the snapshot link to above first</span>
+                    <span lang="zh-CN">请先把快取连接贴到上面</span>
+                    <span lang="zh-TW">請先把快取連結貼到上面</span>
+                </em>
             </li>
         </ol>
-        <p><a href="#top">↑ 返回</a></p>
-    </div>-->
+
+        <p><a href="#">↑
+            <span lang="en-US">Return</span>
+            <span lang="zh-CN">返回</span>
+            <span lang="zh-TW">返回</span>
+        </a></p>
+    </div>
 
     <!--
     <hr>
@@ -523,6 +532,7 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
 <script>
     $(document).ready(function() {
         var iframe = $('#script-iframe');
+        var curLang = 'en-US';
 
         $('#copy-script-button').show().click(function() {
             $('#script-container > textarea:visible').focus().select();
@@ -544,6 +554,7 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
 
         $('#lang-selector').prop('disabled', false).change(function() {
             var rules = document.styleSheets[1].cssRules;
+            curLang = this.value;
             for (var i = 0; i < rules.length; i++) {
                 var rule = rules[i];
                 var st = rule.selectorText;
@@ -557,6 +568,19 @@ tar xfv grafsnap-0.1.0-linux-x86_64.tar.gz</code></pre>
             $('.import-script').hide();
             $('#' + $(this).data('target')).show();
         });
+
+        $('#manual-url-field').on('keyup change', function() {
+            var link = $('#manual-url-link');
+            var invalid = $('#manual-url-invalid');
+            if (/\/dashboard\/snapshot\//.test(this.value)) {
+                var url = this.value.replace(/\/dashboard\/snapshot\//, '/api/snapshots/');
+                link.attr('href', url).text(url);
+                invalid.hide();
+            } else {
+                link.removeAttr('href').text('');
+                invalid.show();
+            }
+        }).change();
     });
 </script>
 </body>
