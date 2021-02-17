@@ -19,6 +19,16 @@ type ListDashboardResult struct {
 	URL string `json:"url"`
 }
 
+// DataSource is the result of listing data soures from Grafana.
+type DataSource struct {
+	// ID is the internal data source ID.
+	ID int64 `json:"id"`
+	// Name is the human-readable name and unique identifier of the data source.
+	Name string `json:"name"`
+	// Type is the data source type.
+	Type string `json:"type"`
+}
+
 // ListDashboards lists all dashboards.
 func (cli *Client) ListDashboards(ctx context.Context) ([]ListDashboardResult, error) {
 	// TODO: evaluate the templating.
@@ -38,4 +48,19 @@ func (cli *Client) ListDashboards(ctx context.Context) ([]ListDashboardResult, e
 	}
 
 	return result, nil
+}
+
+// ListDataSources lists all data sources, and turn it into a map by data source name.
+func (client *Client) ListDataSources(ctx context.Context) (map[string]DataSource, error) {
+	var dataSources []DataSource
+
+	if err := client.do(ctx, "GET", "api/datasources", nil, nil, &dataSources); err != nil {
+		return nil, fmt.Errorf("cannot list data sources:\n%w", err)
+	}
+
+	res := make(map[string]DataSource, len(dataSources))
+	for _, ds := range dataSources {
+		res[ds.Name] = ds.ID
+	}
+	return res, nil
 }
