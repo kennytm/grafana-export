@@ -67,6 +67,9 @@ website: \
 			viz/public/fonts/*.woff \
 		)) \
 
+purge-website: clean-website
+	rm -f viz/public/views/index.html
+
 clean-website:
 	rm -rf website/
 
@@ -100,5 +103,5 @@ upload: website
 		website/ \
 		$(TARGET)
 
-.PHONY: all download-assets website website-structure clean-website upload
+.PHONY: all download-assets website website-structure clean-website purge-website upload
 
