@@ -156,96 +156,105 @@ var t={t:&quot;Script failed to run. Please ensure it is running on the Grafana 
 i:&quot;Going to export snapshot of the current dashboard: &quot;,s:&quot;Note: Only metrics from visible panels can be exported&quot;,
 o:&quot;Number of panels&quot;,l:&quot;Loading panels&quot;,h:&quot;Expand all rows&quot;,p:&quot;Export&quot;,u:&quot;Export immediately&quot;,cancel:&quot;Cancel&quot;}
 try{
-var e=angular.element,i=document.styleSheets[0],n=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
-new(function(){function s(){var s=this,a=e(document).injector()
-this.m=a.get(&quot;timeSrv&quot;)
+var e=angular.element,i=document.styleSheets[0],a=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+new(function(){function n(){var n=this,s=e(document).injector()
+this.m=s.get(&quot;timeSrv&quot;)
 var o=this.m.dashboard
-n.forEach(t=&gt;i.insertRule(t,0)),this.v=e(&quot;&lt;span&gt;&quot;),this.g=e(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
-this._=e(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;s.k()),
-this.P=e(&quot;&lt;button&gt;&quot;).text(t.h).on(&quot;click&quot;,()=&gt;o.expandRows())
+a.forEach(t=&gt;i.insertRule(t,0)),this.v=e(&quot;&lt;span&gt;&quot;),this.g=e(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this._=e(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;n.k()),
+this.P=e(&quot;&lt;button&gt;&quot;).text(t.h).on(&quot;click&quot;,()=&gt;{o.expandRows(),n.S(()=&gt;{n.T()})})
 var r=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
-this.S=e(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(e(&quot;&lt;p&gt;&quot;).text(t.i).append(e(&quot;&lt;strong&gt;&quot;).text(o.title)),e(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),e(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this.g,this.v),e(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this._,e(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;s.j()))),
-this.I=0,e(document.body).append(this.S),this.L=setInterval(()=&gt;s.N(),500)}return s.prototype.N=function(){
-var i=this,n=e(&quot;.panel-container&quot;),s=n.length
-if(0===this.I)this.v.text(t.o+&quot;: &quot;+s),this._.prop(&quot;disabled&quot;,0===s)
-else{var a=s-n.find(&quot;.panel-loading:visible&quot;).length,o=(100*a/s||0).toFixed(1)
-this.v.text(t.l+&quot;: &quot;+o+&quot;% (&quot;+a+&quot;/&quot;+s+&quot;)&quot;),this.g.prop({value:a,max:s}),s&gt;a?2!==this.I&amp;&amp;(this.I=2,
-this._.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;i.O())):this.O()}},s.prototype.k=function(){var t=this.m.dashboard
-this.I=1,this._.prop(&quot;disabled&quot;,!0),this.T=t.refresh,this.m.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
-t.snapshot={timestamp:new Date},t.startRefresh()},s.prototype.O=function(){
-var t=this.m.dashboard,i=t.snapshot.timestamp.toISOString(),n=t.getSaveModelClone(),s=n.title
-n.time=this.m.timeRange(),n.id=null,n.uid=null,n.title=s+&quot; (exported at &quot;+i+&quot;)&quot;
-var a={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i},dashboard:n,overwrite:!0}
-this.j()
-var o=new Blob([JSON.stringify(a)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),l=e(&quot;&lt;a&gt;&quot;)
-l.prop({href:r,download:s+&quot;_&quot;+i+&quot;.json&quot;}),e(document.body).append(l),l[0].click(),setTimeout(()=&gt;{
-URL.revokeObjectURL(r),l.remove()},0)},s.prototype.j=function(){var t=this.m.dashboard
+this.j=e(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(e(&quot;&lt;p&gt;&quot;).text(t.i).append(e(&quot;&lt;strong&gt;&quot;).text(o.title)),e(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),e(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this.g,this.v),e(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this._,e(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;n.I()))),
+this.L=0,e(document.body).append(this.j),this.N=setInterval(()=&gt;n.T(),500)}return n.prototype.T=function(){
+var i=this,a=e(&quot;.panel-container&quot;),n=a.length
+if(0===this.L)this.v.text(t.o+&quot;: &quot;+n),this._.prop(&quot;disabled&quot;,0===n)
+else{var s=n-a.find(&quot;.panel-loading:visible&quot;).length,o=(100*s/n||0).toFixed(1)
+this.v.text(t.l+&quot;: &quot;+o+&quot;% (&quot;+s+&quot;/&quot;+n+&quot;)&quot;),this.g.prop({value:s,max:n}),n&gt;s?2!==this.L&amp;&amp;(this.L=2,
+this._.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;i.O())):this.O()}},n.prototype.k=function(){
+var t=this,i=this.m.dashboard
+this.B=i.refresh,this.m.setAutoRefresh(),e(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),this.S(()=&gt;{t.L=1,
+t._.prop(&quot;disabled&quot;,!0),i.snapshot={timestamp:new Date},i.startRefresh()})},n.prototype.S=function(t){var i=e(&quot;.layout&quot;)
+i.hide(),this.m.dashboard.removePanel(null),setTimeout(()=&gt;{t(),i.show()},100)},n.prototype.O=function(){
+var t=this.m.dashboard,i=t.snapshot.timestamp.toISOString(),a=t.getSaveModelClone(),n=a.title
+a.time=this.m.timeRange(),a.id=null,a.uid=null,a.title=n+&quot; (exported at &quot;+i+&quot;)&quot;
+var s={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:i,
+grafana:grafanaBootData.settings.buildInfo},dashboard:a,overwrite:!0}
+this.I()
+var o=new Blob([JSON.stringify(s)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),l=e(&quot;&lt;a&gt;&quot;)
+l.prop({href:r,download:n+&quot;_&quot;+i+&quot;.json&quot;,target:&quot;_blank&quot;}),e(document.body).append(l),l[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(r),l.remove()},0)},n.prototype.I=function(){var t=this.m.dashboard
 delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
-this.T&amp;&amp;this.m.setAutoRefresh(this.T),clearInterval(this.L),this.S.remove(),n.forEach(()=&gt;i.deleteRule(0))},s}())
+this.B&amp;&amp;this.m.setAutoRefresh(this.B),clearInterval(this.N),this.j.remove(),a.forEach(()=&gt;i.deleteRule(0))},n}())
 }catch(e){console.error(e),alert(t.t)}</textarea>
                     <textarea lang="zh-CN" class="w-100" readonly rows="3" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
 &quot;use strict&quot;
-var t={t:&quot;执行失败。请确保是在 Grafana v6.x.x 的监控网页上执行脚本。&quot;,i:&quot;将导出当前的监控页面：&quot;,s:&quot;注意：只有已展开面板内的监控会被导出&quot;,o:&quot;面板数量&quot;,h:&quot;加载面板中&quot;,l:&quot;展开所有面板&quot;,
+var t={t:&quot;执行失败。请确保是在 Grafana v6.x.x 的监控网页上执行脚本。&quot;,i:&quot;将导出当前的监控页面：&quot;,s:&quot;注意：只有已展开面板内的监控会被导出&quot;,o:&quot;面板数量&quot;,l:&quot;加载面板中&quot;,h:&quot;展开所有面板&quot;,
 p:&quot;导出&quot;,u:&quot;立刻导出&quot;,cancel:&quot;取消&quot;}
 try{
-var i=angular.element,e=document.styleSheets[0],s=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
-new(function(){function n(){var n=this,a=i(document).injector()
-this.v=a.get(&quot;timeSrv&quot;)
+var i=angular.element,e=document.styleSheets[0],a=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+new(function(){function n(){var n=this,s=i(document).injector()
+this.v=s.get(&quot;timeSrv&quot;)
 var o=this.v.dashboard
-s.forEach(t=&gt;e.insertRule(t,0)),this.m=i(&quot;&lt;span&gt;&quot;),this._=i(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
-this.g=i(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;n.k()),
-this.P=i(&quot;&lt;button&gt;&quot;).text(t.l).on(&quot;click&quot;,()=&gt;o.expandRows())
+a.forEach(t=&gt;e.insertRule(t,0)),this.m=i(&quot;&lt;span&gt;&quot;),this.g=i(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this._=i(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;n.k()),
+this.P=i(&quot;&lt;button&gt;&quot;).text(t.h).on(&quot;click&quot;,()=&gt;{o.expandRows(),n.S(()=&gt;{n.T()})})
 var r=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
-this.S=i(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(i(&quot;&lt;p&gt;&quot;).text(t.i).append(i(&quot;&lt;strong&gt;&quot;).text(o.title)),i(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),i(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this._,this.m),i(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this.g,i(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;n.j()))),
-this.I=0,i(document.body).append(this.S),this.T=setInterval(()=&gt;n.L(),500)}return n.prototype.L=function(){
-var e=this,s=i(&quot;.panel-container&quot;),n=s.length
-if(0===this.I)this.m.text(t.o+&quot;: &quot;+n),this.g.prop(&quot;disabled&quot;,0===n)
-else{var a=n-s.find(&quot;.panel-loading:visible&quot;).length,o=(100*a/n||0).toFixed(1)
-this.m.text(t.h+&quot;: &quot;+o+&quot;% (&quot;+a+&quot;/&quot;+n+&quot;)&quot;),this._.prop({value:a,max:n}),n&gt;a?2!==this.I&amp;&amp;(this.I=2,
-this.g.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;e.O())):this.O()}},n.prototype.k=function(){var t=this.v.dashboard
-this.I=1,this.g.prop(&quot;disabled&quot;,!0),this.R=t.refresh,this.v.setAutoRefresh(),i(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
-t.snapshot={timestamp:new Date},t.startRefresh()},n.prototype.O=function(){
-var t=this.v.dashboard,e=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone(),n=s.title
-s.time=this.v.timeRange(),s.id=null,s.uid=null,s.title=n+&quot; (exported at &quot;+e+&quot;)&quot;
-var a={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:e},dashboard:s,overwrite:!0}
-this.j()
-var o=new Blob([JSON.stringify(a)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),h=i(&quot;&lt;a&gt;&quot;)
-h.prop({href:r,download:n+&quot;_&quot;+e+&quot;.json&quot;}),i(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
-URL.revokeObjectURL(r),h.remove()},0)},n.prototype.j=function(){var t=this.v.dashboard
+this.j=i(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(i(&quot;&lt;p&gt;&quot;).text(t.i).append(i(&quot;&lt;strong&gt;&quot;).text(o.title)),i(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),i(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this.g,this.m),i(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this._,i(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;n.I()))),
+this.B=0,i(document.body).append(this.j),this.D=setInterval(()=&gt;n.T(),500)}return n.prototype.T=function(){
+var e=this,a=i(&quot;.panel-container&quot;),n=a.length
+if(0===this.B)this.m.text(t.o+&quot;: &quot;+n),this._.prop(&quot;disabled&quot;,0===n)
+else{var s=n-a.find(&quot;.panel-loading:visible&quot;).length,o=(100*s/n||0).toFixed(1)
+this.m.text(t.l+&quot;: &quot;+o+&quot;% (&quot;+s+&quot;/&quot;+n+&quot;)&quot;),this.g.prop({value:s,max:n}),n&gt;s?2!==this.B&amp;&amp;(this.B=2,
+this._.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;e.L())):this.L()}},n.prototype.k=function(){
+var t=this,e=this.v.dashboard
+this.O=e.refresh,this.v.setAutoRefresh(),i(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),this.S(()=&gt;{t.B=1,
+t._.prop(&quot;disabled&quot;,!0),e.snapshot={timestamp:new Date},e.startRefresh()})},n.prototype.S=function(t){var e=i(&quot;.layout&quot;)
+e.hide(),this.v.dashboard.removePanel(null),setTimeout(()=&gt;{t(),e.show()},100)},n.prototype.L=function(){
+var t=this.v.dashboard,e=t.snapshot.timestamp.toISOString(),a=t.getSaveModelClone(),n=a.title
+a.time=this.v.timeRange(),a.id=null,a.uid=null,a.title=n+&quot; (exported at &quot;+e+&quot;)&quot;
+var s={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:e,
+grafana:grafanaBootData.settings.buildInfo},dashboard:a,overwrite:!0}
+this.I()
+var o=new Blob([JSON.stringify(s)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),l=i(&quot;&lt;a&gt;&quot;)
+l.prop({href:r,download:n+&quot;_&quot;+e+&quot;.json&quot;,target:&quot;_blank&quot;}),i(document.body).append(l),l[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(r),l.remove()},0)},n.prototype.I=function(){var t=this.v.dashboard
 delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
-this.R&amp;&amp;this.v.setAutoRefresh(this.R),clearInterval(this.T),this.S.remove(),s.forEach(()=&gt;e.deleteRule(0))},n}())
+this.O&amp;&amp;this.v.setAutoRefresh(this.O),clearInterval(this.D),this.j.remove(),a.forEach(()=&gt;e.deleteRule(0))},n}())
 }catch(i){console.error(i),alert(t.t)}</textarea>
                     <textarea lang="zh-TW" class="w-100" readonly rows="3" cols="100">/* Copyright 2020 PingCAP, Inc. Licensed under MIT. */
 &quot;use strict&quot;
-var t={t:&quot;執行失敗。請確保是在 Grafana v6.x.x 的儀表板上執行劇本。&quot;,i:&quot;即將匯出當前儀表板：&quot;,s:&quot;注意：只能匯出已展開的面板內的資料&quot;,o:&quot;面板數量&quot;,h:&quot;載入面板中&quot;,l:&quot;展開所有面板&quot;,
+var t={t:&quot;執行失敗。請確保是在 Grafana v6.x.x 的儀表板上執行劇本。&quot;,i:&quot;即將匯出當前儀表板：&quot;,s:&quot;注意：只能匯出已展開的面板內的資料&quot;,o:&quot;面板數量&quot;,l:&quot;載入面板中&quot;,h:&quot;展開所有面板&quot;,
 p:&quot;匯出&quot;,u:&quot;立即匯出&quot;,cancel:&quot;取消&quot;}
 try{
-var i=angular.element,e=document.styleSheets[0],s=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
-new(function(){function n(){var n=this,a=i(document).injector()
-this.v=a.get(&quot;timeSrv&quot;)
+var i=angular.element,e=document.styleSheets[0],a=[&quot;.__dexport_hint{z-index:2222;position:fixed;background:#fff;color:#000;padding:1em;font-size:18px;border-left:3px solid #faad14;right:0;top:5em;opacity:.8;min-width:30em}&quot;,&quot;.__dexport_hint:hover{opacity:1}&quot;,&quot;.__dexport_hint button{margin:0 1em}&quot;,&quot;.__dexport_hint button[disabled]{opacity:.5}&quot;,&quot;.__dexport_hint progress{margin-right:1em;vertical-align:middle;width:18em}&quot;]
+new(function(){function n(){var n=this,s=i(document).injector()
+this.v=s.get(&quot;timeSrv&quot;)
 var o=this.v.dashboard
-s.forEach(t=&gt;e.insertRule(t,0)),this.m=i(&quot;&lt;span&gt;&quot;),this._=i(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
-this.g=i(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;n.k()),
-this.P=i(&quot;&lt;button&gt;&quot;).text(t.l).on(&quot;click&quot;,()=&gt;o.expandRows())
+a.forEach(t=&gt;e.insertRule(t,0)),this.m=i(&quot;&lt;span&gt;&quot;),this.g=i(&#39;&lt;progress value=&quot;0&quot;&gt;&#39;),
+this._=i(&#39;&lt;button style=&quot;font-weight:bold&quot;&gt;&#39;).text(t.p).one(&quot;click&quot;,()=&gt;n.k()),
+this.P=i(&quot;&lt;button&gt;&quot;).text(t.h).on(&quot;click&quot;,()=&gt;{o.expandRows(),n.S(()=&gt;{n.T()})})
 var r=/^(Mac|iP)/.test(navigator.platform)?&quot;flex-direction:row-reverse&quot;:&quot;justify-content:center&quot;
-this.S=i(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(i(&quot;&lt;p&gt;&quot;).text(t.i).append(i(&quot;&lt;strong&gt;&quot;).text(o.title)),i(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),i(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this._,this.m),i(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this.g,i(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;n.j()))),
-this.I=0,i(document.body).append(this.S),this.T=setInterval(()=&gt;n.L(),500)}return n.prototype.L=function(){
-var e=this,s=i(&quot;.panel-container&quot;),n=s.length
-if(0===this.I)this.m.text(t.o+&quot;: &quot;+n),this.g.prop(&quot;disabled&quot;,0===n)
-else{var a=n-s.find(&quot;.panel-loading:visible&quot;).length,o=(100*a/n||0).toFixed(1)
-this.m.text(t.h+&quot;: &quot;+o+&quot;% (&quot;+a+&quot;/&quot;+n+&quot;)&quot;),this._.prop({value:a,max:n}),n&gt;a?2!==this.I&amp;&amp;(this.I=2,
-this.g.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;e.O())):this.O()}},n.prototype.k=function(){var t=this.v.dashboard
-this.I=1,this.g.prop(&quot;disabled&quot;,!0),this.R=t.refresh,this.v.setAutoRefresh(),i(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),
-t.snapshot={timestamp:new Date},t.startRefresh()},n.prototype.O=function(){
-var t=this.v.dashboard,e=t.snapshot.timestamp.toISOString(),s=t.getSaveModelClone(),n=s.title
-s.time=this.v.timeRange(),s.id=null,s.uid=null,s.title=n+&quot; (exported at &quot;+e+&quot;)&quot;
-var a={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:e},dashboard:s,overwrite:!0}
-this.j()
-var o=new Blob([JSON.stringify(a)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),h=i(&quot;&lt;a&gt;&quot;)
-h.prop({href:r,download:n+&quot;_&quot;+e+&quot;.json&quot;}),i(document.body).append(h),h[0].click(),setTimeout(()=&gt;{
-URL.revokeObjectURL(r),h.remove()},0)},n.prototype.j=function(){var t=this.v.dashboard
+this.j=i(&#39;&lt;div class=&quot;__dexport_hint&quot;&gt;&#39;).append(i(&quot;&lt;p&gt;&quot;).text(t.i).append(i(&quot;&lt;strong&gt;&quot;).text(o.title)),i(&quot;&lt;p&gt;&quot;).text(t.s).append(this.P),i(&#39;&lt;p style=&quot;font-size:.8em&quot;&gt;&#39;).append(this.g,this.m),i(&#39;&lt;p style=&quot;display:flex;&#39;+r+&#39;&quot;&gt;&#39;).append(this._,i(&quot;&lt;button&gt;&quot;).text(t.cancel).on(&quot;click&quot;,()=&gt;n.I()))),
+this.B=0,i(document.body).append(this.j),this.D=setInterval(()=&gt;n.T(),500)}return n.prototype.T=function(){
+var e=this,a=i(&quot;.panel-container&quot;),n=a.length
+if(0===this.B)this.m.text(t.o+&quot;: &quot;+n),this._.prop(&quot;disabled&quot;,0===n)
+else{var s=n-a.find(&quot;.panel-loading:visible&quot;).length,o=(100*s/n||0).toFixed(1)
+this.m.text(t.l+&quot;: &quot;+o+&quot;% (&quot;+s+&quot;/&quot;+n+&quot;)&quot;),this.g.prop({value:s,max:n}),n&gt;s?2!==this.B&amp;&amp;(this.B=2,
+this._.prop(&quot;disabled&quot;,!1).text(t.u).one(&quot;click&quot;,()=&gt;e.L())):this.L()}},n.prototype.k=function(){
+var t=this,e=this.v.dashboard
+this.O=e.refresh,this.v.setAutoRefresh(),i(&quot;.panel-loading&quot;).removeClass(&quot;ng-hide&quot;),this.S(()=&gt;{t.B=1,
+t._.prop(&quot;disabled&quot;,!0),e.snapshot={timestamp:new Date},e.startRefresh()})},n.prototype.S=function(t){var e=i(&quot;.layout&quot;)
+e.hide(),this.v.dashboard.removePanel(null),setTimeout(()=&gt;{t(),e.show()},100)},n.prototype.L=function(){
+var t=this.v.dashboard,e=t.snapshot.timestamp.toISOString(),a=t.getSaveModelClone(),n=a.title
+a.time=this.v.timeRange(),a.id=null,a.uid=null,a.title=n+&quot; (exported at &quot;+e+&quot;)&quot;
+var s={meta:{isSnapshot:!0,type:&quot;snapshot&quot;,expires:&quot;9999-12-31T23:59:59Z&quot;,created:e,
+grafana:grafanaBootData.settings.buildInfo},dashboard:a,overwrite:!0}
+this.I()
+var o=new Blob([JSON.stringify(s)],{type:&quot;application/json&quot;}),r=URL.createObjectURL(o),l=i(&quot;&lt;a&gt;&quot;)
+l.prop({href:r,download:n+&quot;_&quot;+e+&quot;.json&quot;,target:&quot;_blank&quot;}),i(document.body).append(l),l[0].click(),setTimeout(()=&gt;{
+URL.revokeObjectURL(r),l.remove()},0)},n.prototype.I=function(){var t=this.v.dashboard
 delete t.snapshot,t.forEachPanel(t=&gt;delete t.snapshotData),t.annotations.list.forEach(t=&gt;delete t.snapshotData),
-this.R&amp;&amp;this.v.setAutoRefresh(this.R),clearInterval(this.T),this.S.remove(),s.forEach(()=&gt;e.deleteRule(0))},n}())
+this.O&amp;&amp;this.v.setAutoRefresh(this.O),clearInterval(this.D),this.j.remove(),a.forEach(()=&gt;e.deleteRule(0))},n}())
 }catch(i){console.error(i),alert(t.t)}</textarea>
                 </p>
             </li>
