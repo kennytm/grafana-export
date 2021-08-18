@@ -27,6 +27,7 @@ declare class DashboardModel {
     expandRows(): void
     startRefresh(): void
     forEachPanel(callback: (panel: PanelModel, index: number) => void): void
+    removePanel(_: null): void
 }
 
 declare interface TimeRange {}
@@ -39,8 +40,15 @@ declare class TimeSrv {
     timeRange(): TimeRange
 }
 
-declare interface JQLiteWithFilter extends JQLite {
-    filter(selector: string): JQLiteWithFilter
+declare interface JQCoords {
+    left: number
+    top: number
+}
+
+declare interface JQ extends JQLite {
+    filter(selector: string): JQ
+    hide(): JQ
+    show(): JQ
 }
 
 // https://github.com/grafana/grafana/blob/v6.1.6/public/app/features/dashboard/components/ShareModal/ShareSnapshotCtrl.ts#L38

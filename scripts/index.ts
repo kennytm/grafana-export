@@ -44,7 +44,12 @@ try {
             this.loadProgressText = $('<span>');
             this.loadProgress = $('<progress value="0">');
             this.exportButton = $('<button style="font-weight:bold">').text(L.export).one('click', () => this.startExport());
-            this.expandAllButton = $('<button>').text(L.expandAllPanels).on('click', () => dashboard.expandRows());
+            this.expandAllButton = $('<button>').text(L.expandAllPanels).on('click', () => {
+                dashboard.expandRows();
+                this.prepareEagerLoad(() => {
+                    this.updateProgress();
+                });
+            });
             // note: order like [------- (Cancel) (Export)] on macOS,
             //              and [--- (Export) (Cancel) ---] everywhere else.
             const flexStyle = /^(Mac|iP)/.test(navigator.platform) ? 'flex-direction:row-reverse' : 'justify-content:center';
@@ -90,8 +95,6 @@ try {
 
         startExport(): void {
             const dashboard = this.timeSrv.dashboard;
-            this.exportState = ExportState.started;
-            this.exportButton.prop('disabled', true);
 
             // disable auto-refresh and ready the snapshot.
             this.oldRefreshRate = dashboard.refresh;
@@ -100,8 +103,33 @@ try {
             // remove the "ready" status of all spinners
             $('.panel-loading').removeClass('ng-hide');
 
-            dashboard.snapshot = {timestamp: new Date()};
-            dashboard.startRefresh();
+            this.prepareEagerLoad(() => {
+                this.exportState = ExportState.started;
+                this.exportButton.prop('disabled', true);
+                dashboard.snapshot = {timestamp: new Date()};
+                dashboard.startRefresh();
+            });
+        }
+
+        // ensure no panels are skipped due to lazy loading.
+        prepareEagerLoad(ready: () => void): void {
+            const dashboardContent = $('.layout') as JQ;
+
+            // first, forces all panel's offsetTop to 0,
+            // which will trick isInView() to consider all panels are visible.
+            // we do this by hiding the page entirely.
+            dashboardContent.hide();
+
+            // then, force calling render(), which triggers recalculation of isInView().
+            // this is done by removing a null panel (which is no-op in the end)
+            this.timeSrv.dashboard.removePanel(null);
+
+            // wait a while for the event to propagate...
+            setTimeout(() => {
+                // restore the page and callback.
+                ready();
+                dashboardContent.show();
+            }, 100);
         }
 
         doExport(): void {
@@ -132,7 +160,7 @@ try {
             const blob = new Blob([JSON.stringify(snapshot)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
             const a = $('<a>');
-            a.prop({'href': url, 'download': `${title}_${timestamp}.json`});
+            a.prop({'href': url, 'download': `${title}_${timestamp}.json`, 'target': '_blank'});
             $(document.body).append(a);
             a[0].click();
             setTimeout(() => {
