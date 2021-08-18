@@ -11,6 +11,8 @@ const enum ExportState {
     shortcut,
 }
 
+declare const grafanaBootData: GrafanaBootData;
+
 try {
     const $ = angular.element;
     const FIRST_STYLESHEET = document.styleSheets[0];
@@ -150,6 +152,7 @@ try {
                     'type': 'snapshot',
                     'expires': '9999-12-31T23:59:59Z',
                     'created': timestamp,
+                    'grafana': grafanaBootData['settings']['buildInfo'],
                 },
                 'dashboard': clone,
                 'overwrite': true,

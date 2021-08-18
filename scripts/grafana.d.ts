@@ -55,3 +55,9 @@ declare interface JQ extends JQLite {
 declare interface Snapshot {
     readonly timestamp: Date
 }
+
+declare interface GrafanaBootData {
+    settings: {
+        buildInfo: any
+    }
+}

@@ -20,6 +20,7 @@ const terserConfig = {
                 'expandRows',
                 'forEachPanel',
                 'getSaveModelClone',
+                'grafanaBootData',
                 'hide',
                 'injector',
                 'on',
